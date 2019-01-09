@@ -1,0 +1,174 @@
+{
+  "league": [
+    {
+      "id": 1000,
+      "name": "carousel",
+      "description": "",
+      "match": [
+        {
+          "id": 66604,
+          "name": "Lyon vs Saint Etienne HL",
+          "streamURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/23/42/69317/0.m3u8",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/23/42/69317/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": false
+        },
+        {
+          "id": 66601,
+          "name": "Caen vs Monaco HL",
+          "streamURL": "http://cdn006.xyz/UpFiles/2018/11/10/42/66601/0.m3u8?v=35",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/24/42/69799/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": false
+        },
+        {
+          "id": 66531,
+          "name": "Lazio vs Milan HL English Final",
+          "streamURL": "http://cdn007.xyz/UpFiles/2018/11/9/42/66531/0.m3u8?v=14",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/25/42/70209/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": true
+        }
+      ]
+    },
+    {
+      "id": 1001,
+      "name": "Premier League",
+      "description": "",
+      "match": [
+        {
+          "id": 66604,
+          "name": "AFC Bournemouth vs Arsenal ext hl",
+          "streamURL": "http://cdn007.xyz/UpFiles/2018/11/10/42/66604/0.m3u8?v=56",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/25/42/70114/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": false
+        },
+        {
+          "id": 66601,
+          "name": "Wolves vs Huddersfield",
+          "streamURL": "http://cdn006.xyz/UpFiles/2018/11/10/42/66601/0.m3u8?v=35",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/24/42/69770/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": false
+        },
+        {
+          "id": 66531,
+          "name": "Spurs v Chelsea Extended",
+          "streamURL": "http://cdn007.xyz/UpFiles/2018/11/9/42/66531/0.m3u8?v=14",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/24/42/69770/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": true
+        }
+      ]
+    },
+    {
+      "id": 1002,
+      "name": "La Liga",
+      "description": "",
+      "match": [
+        {
+          "id": 66604,
+          "name": "Atletico Madrid vs Barcelona HL English Final",
+          "streamURL": "http://cdn007.xyz/UpFiles/2018/11/10/42/66604/0.m3u8?v=56",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/24/42/69914/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": false
+        },
+        {
+          "id": 66601,
+          "name": "Espanyol vs Girona HL Spanish Final",
+          "streamURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/25/42/70222/0.m3u8",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/25/42/70222/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": false
+        },
+        {
+          "id": 66531,
+          "name": "Athletic Bilbao vs Getafe Highlights HF",
+          "streamURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/25/36/70050/0.m3u8",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/25/36/70050/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": true
+        }
+      ]
+    },
+    {
+      "id": 1003,
+      "name": "Bundesliga",
+      "description": "",
+      "match": [
+        {
+          "id": 66604,
+          "name": "Bayer Leverkusen vs VfB Stuttgart",
+          "streamURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/23/44/69318/0.m3u8",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/23/44/69318/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": false
+        },
+        {
+          "id": 66601,
+          "name": "Schalke 04 VS Nurnberg Extended Highlights HF",
+          "streamURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/25/36/69951/0.m3u8",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/25/36/69951/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": false
+        },
+        {
+          "id": 66531,
+          "name": "Hertha BSC vs Hoffenheim",
+          "streamURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/24/44/69627/0.m3u8",
+          "imageURL": "http://1107942067.rsc.cdn77.org/UpFiles/2018/11/24/44/69627/0.png",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": true
+        }
+      ]
+    },
+    {
+      "id": 1017,
+      "name": "Sport TV",
+      "description": "",
+      "match": [
+        {
+          "id": 66604,
+          "name": "HTV The Thao",
+          "streamURL": "http://live.cdn.mobifonetv.vn/motv/myhtvcthethao_hls.smil/playlist.m3u8",
+          "imageURL": "http://www.htvc.vn/uploads/channel/2015/02/13/1028005-logo-htvthethao.png",
+          "type": "highlight",
+          "league": "1017",
+          "isLive": false
+        },
+        {
+          "id": 66601,
+          "name": "VTV 3 HD",
+          "streamURL": "https://hjyjrvmlsk.vcdn.com.vn/hls/idmwifi/index.m3u8",
+          "imageURL": "http://www.htvc.vn/uploads/cache/thumbnail/2015-03-26/8026305-logo-vtv3hd-a.png",
+          "type": "highlight",
+          "league": "1017",
+          "isLive": false
+        },
+        {
+          "id": 66531,
+          "name": "VTC3 HD",
+          "streamURL": "https://cdn.vtc.gov.vn/live/eds/VTC3_3/hlsv5/VTC3_3-audio_20000=212400-video=600000.m3u8",
+          "imageURL": "https://vignette.wikia.nocookie.net/logos/images/f/f5/VTC3_HD_logo_2018.png/revision/latest?cb=20180722152406&path-prefix=vi",
+          "type": "highlight",
+          "league": "1015",
+          "isLive": false
+        }
+      ]
+    }
+  ]
+}

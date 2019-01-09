@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!-- START xml_defaults -->
+<defaultsMap>
+    <entry>
+        <key>today_highlight_status</key>
+        <value></value>
+    </entry>
+    <entry>
+        <key>use_facebook_ads_first</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>use_online_data_flag</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>active_ads</key>
+        <value>false</value>
+    </entry>
+</defaultsMap><!-- END xml_defaults -->

@@ -1,0 +1,22 @@
+package com.iseasoft.isealive;
+
+public class ISeaLiveConstants {
+    public static final int SCREEN_LIMIT_TO_SHOW_INTERSTITIAL_ADS = 5;
+
+    public static final String LEAGUE_COLLECTION = "league";
+    public static final int CAROUSEL_ID = 1000;
+    public static final int SPORT_TV_ID = 1017;
+    public static final String MATCH_KEY = "match";
+    public static final String LEAGUE_KEY = "league";
+    public static final String PUSH_MESSAGE = "push_message";
+    public static final String PUSH_URL_KEY = "push_match_url";
+    public static final String YOUTUBE_API_KEY = "AIzaSyBtcgN2CSg3ElJQSMQMSTZhgoDQZKClmkA";
+    public static final String GOOGLE_PLAY_APP_LINK = "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
+
+    public static final String CONFIG_COLLECTION = "config";
+    public static final String USE_ONLINE_DATA_FLAG_KEY = "use_online_data_flag";
+    public static final String ACTIVE_ADS_KEY = "active_ads";
+    public static final String USE_FACEBOOK_ADS_FIRST = "use_facebook_ads_first";
+    public static final String TODAY_HIGHLIGHT_STATUS = "today_highlight_status";
+
+}

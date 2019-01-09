@@ -1,0 +1,156 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/dark_sky_blue</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:background">@drawable/ic_splash</item>
+        <item name="colorPrimaryDark">@color/dark_sky_blue</item>
+    </style>
+
+    <style name="Theme.CastVideosDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimaryDark">@color/slate</item>
+    </style>
+
+
+    <!-- Seekbar -->
+    <style name="SeekBar" parent="Widget.AppCompat.SeekBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxHeight">@dimen/player_seek_bar_height</item>
+        <item name="android:progressDrawable">@drawable/custom_seek_bar</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingStart">0dip</item>
+        <item name="android:paddingEnd">0dip</item>
+        <item name="android:paddingLeft">0dip</item>
+        <item name="android:paddingRight">0dip</item>
+        <item name="android:layout_marginTop">-8dip</item>
+        <item name="colorAccent">@color/macaroni_and_cheese</item>
+    </style>
+
+    <style name="SeekBar.Landscape">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">0dip</item>
+        <item name="android:paddingEnd">0dip</item>
+        <item name="android:paddingLeft">0dip</item>
+        <item name="android:paddingRight">0dip</item>
+        <item name="android:maxHeight">@dimen/player_seek_bar_land_height</item>
+        <item name="colorAccent">@color/macaroni_and_cheese</item>
+    </style>
+
+    <style name="MatchTitle">
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">2</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/slate</item>
+    </style>
+
+    <style name="CarouselTitle">
+        <item name="android:textSize">@dimen/carousel_title_text_size</item>
+        <item name="android:textColor">@color/slate</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginEnd">26dp</item>
+        <item name="android:layout_marginStart">26dp</item>
+        <item name="android:layout_marginTop">26dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CarouselDescp">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/cloudy_grey</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginEnd">30dp</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="LeagueHorizontalTitle">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">@color/slate</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RightActionBtn">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/dark_sky_blue</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/slate</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:icon">@drawable/ic_arrow_back</item>
+    </style>
+
+    <style name="ToolBarTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/slate</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="ButtonText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/cloudy_grey</item>
+        <item name="android:textSize">@dimen/submit_button_text_size</item>
+    </style>
+
+    <style name="ButtonTextSelected">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/dark_sky_blue</item>
+        <item name="android:textSize">@dimen/submit_button_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/slate</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Description">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/cloudy_grey</item>
+    </style>
+
+    <style name="PopupDescription">
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/cloudy_grey</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:maxLines">5</item>
+    </style>
+
+</resources>

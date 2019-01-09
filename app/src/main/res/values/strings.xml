@@ -1,0 +1,31 @@
+<resources>
+    <string name="cast_receiver_app_id">4F8B3483</string>
+    <string name="start_app_id">211223704</string>
+    <string name="fan_app_id">222040122005121_222040975338369</string>
+    <string name="admob_app_id">ca-app-pub-7057641842033524~3782582161</string>
+    <string name="banner_ad_unit_id">/21617116612/136701545971938</string>
+    <string name="interstitial_ad_unit_id">/21617116612/336701545971938</string>
+
+    <string name="admob_app_id_test">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial_ad_unit_id_test">ca-app-pub-3940256099942544/1033173712</string>
+
+    <string name="share_subject">Check out iSeaLive - Live &amp; Highlights</string>
+    <string name="share_boday">Enjoy football matches with iSeaLive</string>
+    <string name="share_app_title">Share this application via</string>
+    <string name="share_video_title">Share this video via</string>
+    <string name="common_dialog_ok">OK, sure</string>
+    <string name="common_dialog_yes">Yes!</string>
+    <string name="common_dialog_cancel">No, thanks</string>
+    <string name="common_dialog_not">Not really</string>
+    <string name="question">Enjoying iSeaLive - Live &amp; Highlight?</string>
+    <string name="rating">How about a rating on the Play Store, then?</string>
+    <string name="feedback">Would you mind to give us some feedback?</string>
+
+    <string name="gdpr_okBtn">Continue</string>
+    <string name="gdpr_cancelBtn">No Thanks</string>
+    <string name="gdpr_title">Would like us to present you with personalized ads?</string>
+    <string name="gdpr_body">This app uses StartApp to enable/provide you with a personalized advertising experience. By clicking, ‘continue’ you agree to share your personal data on StartApp’s Network and its Business Partners and agree to the StartApp privacy policy in order to allow StartApp and its Partners to provide you with relevant ads.</string>
+    <string name="gdpr_logo">StartApp logo</string>
+
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#e7b450</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="macaroni_and_cheese">#e7b450</color>
+    <color name="less_grey">#dee2e6</color>
+    <color name="slate">#3e5367</color>
+    <color name="cloudy_grey">#71818f</color>
+    <color name="dark_sky_blue">#23b9e5</color>
+    <color name="pale_grey">#f7f8fa</color>
+    <color name="dark_gray">#b0b0b0</color>
+    <color name="pale_bluish">#ecf0f4</color>
+
+    <color name="main_color">#FF1FDE64</color>
+    <color name="text_body_color">#8a000000</color>
+</resources>

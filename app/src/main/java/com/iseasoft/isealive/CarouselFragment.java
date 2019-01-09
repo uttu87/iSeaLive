@@ -33,6 +33,7 @@ public class CarouselFragment extends BaseFragment {
     CircleIndicator indicator;
     Unbinder unbinder;
     Timer timer;
+    RemindTask remindTask;
     int page = 0;
     private League league;
     private CarouselPagerAdapter carouselPagerAdapter;
@@ -106,6 +107,8 @@ public class CarouselFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         timer.cancel();
+        remindTask.cancel();
+        remindTask = null;
         timer = null;
         league = null;
         carouselPagerAdapter = null;
@@ -116,7 +119,11 @@ public class CarouselFragment extends BaseFragment {
         if (timer == null) {
             timer = new Timer();
         }
-        timer.scheduleAtFixedRate(new RemindTask(), 0, seconds * 1000);
+
+        if (remindTask == null) {
+            remindTask = new RemindTask();
+        }
+        timer.scheduleAtFixedRate(remindTask, 0, seconds * 1000);
     }
 
     class RemindTask extends TimerTask {

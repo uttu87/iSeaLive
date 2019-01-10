@@ -151,7 +151,9 @@ public class SplashActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // After config data is successfully fetched, it must be activated before newly fetched
                             // values are returned.
-                            mFirebaseRemoteConfig.activateFetched();
+                            if (mFirebaseRemoteConfig != null) {
+                                mFirebaseRemoteConfig.activateFetched();
+                            }
                         }
                         applyRemoteConfig();
                     }
@@ -163,5 +165,11 @@ public class SplashActivity extends AppCompatActivity {
         //LiveApplication.setUseOnlineData(mFirebaseRemoteConfig.getBoolean(USE_ONLINE_DATA_FLAG_KEY));
         LiveApplication.setTodayHighlightStatus(mFirebaseRemoteConfig.getString(TODAY_HIGHLIGHT_STATUS));
         LiveApplication.setUseFacebookAdsFirst(mFirebaseRemoteConfig.getBoolean(USE_FACEBOOK_ADS_FIRST));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFirebaseRemoteConfig = null;
     }
 }

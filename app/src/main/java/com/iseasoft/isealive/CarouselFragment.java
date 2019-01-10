@@ -92,7 +92,7 @@ public class CarouselFragment extends BaseFragment {
     }
 
     private void bindListViewAdapter() {
-        carouselPagerAdapter = new CarouselPagerAdapter(this);
+        carouselPagerAdapter = new CarouselPagerAdapter();
         viewPager.setAdapter(carouselPagerAdapter);
         carouselPagerAdapter.setCarouselItemClickListener(carousel -> {
             Log.d(TAG, "carouselitemclicked:" + carousel.getName());

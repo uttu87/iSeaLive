@@ -1,6 +1,6 @@
 package com.iseasoft.isealive.adapters;
 
-import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +17,11 @@ import java.util.List;
 
 public class CarouselPagerAdapter extends PagerAdapter {
 
-    private final Fragment fragment;
     private CarouselPagerAdapter.CarouselItemClickListener carouselItemClickListener;
-    //    private final ImageLoader imageLoader;
     private List<Match> items;
 
-    public CarouselPagerAdapter(Fragment fragment) {
-        this.fragment = fragment;
+    public CarouselPagerAdapter() {
         items = new ArrayList<>();
-//        imageLoader = Manager.getInstance().getImageLoader();
     }
 
     public void setCarouselItemClickListener(CarouselPagerAdapter.CarouselItemClickListener carouselItemClickListener) {
@@ -51,7 +47,8 @@ public class CarouselPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         Match carousel = items.get(position);
 
-        View v = LayoutInflater.from(container.getContext())
+        Context context = container.getContext();
+        View v = LayoutInflater.from(context)
                 .inflate(R.layout.item_carousel, null, false);
 
         ImageView img = v.findViewById(R.id.imageView);
@@ -59,7 +56,7 @@ public class CarouselPagerAdapter extends PagerAdapter {
 
         tv.setText(carousel.getName());
         if (carousel.getThumbnailUrl() != null) {
-            Glide.with(fragment).load(carousel.getThumbnailUrl()).into(img);
+            Glide.with(context).load(carousel.getThumbnailUrl()).into(img);
         }
         v.setOnClickListener(v1 -> {
             if (carouselItemClickListener != null) {

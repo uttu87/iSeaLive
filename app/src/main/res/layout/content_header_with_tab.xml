@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_alignParentTop="true"
-            android:layout_weight="9.7"
+            android:layout_weight="10"
             android:background="@color/slate"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:tabSelectedTextColor="@color/dark_sky_blue"
@@ -26,7 +26,9 @@
             android:layout_height="48dp"
             android:background="@color/slate"
             android:layout_gravity="center"
-            android:layout_weight="0.3"/>
+            android:layout_weight="0.3"
+            android:visibility="gone" />
+
     </LinearLayout>
 
 

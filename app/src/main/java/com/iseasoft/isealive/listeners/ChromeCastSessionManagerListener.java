@@ -14,6 +14,8 @@ import com.google.android.gms.common.images.WebImage;
 import com.iseasoft.isealive.LiveApplication;
 import com.iseasoft.isealive.models.Match;
 
+import static com.iseasoft.isealive.ISeaLiveConstants.SPORT_TV_ID;
+
 
 public class ChromeCastSessionManagerListener implements SessionManagerListener<CastSession> {
 
@@ -88,9 +90,13 @@ public class ChromeCastSessionManagerListener implements SessionManagerListener<
     }
 
     private void remoteMediaLoad(MediaMetadata mediaMetadata) {
+        String contentType = "application/dash+xml";
+        if (match.isLive() || Integer.valueOf(match.getLeague()) == SPORT_TV_ID) {
+            contentType = "application/x-mpegurl";
+        }
         MediaInfo mediaInfo = new MediaInfo.Builder(match.getStreamUrl())
                 .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
-                .setContentType("application/dash+xml")
+                .setContentType(contentType)
                 .setMetadata(mediaMetadata)
                 .build();
         remoteMediaLoad(mediaInfo, 0);

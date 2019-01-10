@@ -2,7 +2,6 @@ package com.iseasoft.isealive;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.cast.framework.CastContext;
 import com.google.android.gms.cast.framework.CastSession;
@@ -61,27 +60,6 @@ public class LiveApplication extends Application {
         return mSelf;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mSelf = this;
-        if (LiveApplication.isDebugBuild()) {
-            if (LeakCanary.isInAnalyzerProcess(this)) {
-                // This process is dedicated to LeakCanary for heap analysis.
-                // You should not init your app in this process.
-                return;
-            }
-            LeakCanary.install(this);
-        }
-
-        setupChromeCast();
-    }
-
-    private void setupChromeCast() {
-        castContext = CastContext.getSharedInstance(this);
-        chromecastSessionManagerListener = new ChromeCastSessionManagerListener();
-    }
-
     public static LiveApplication getApplication() {
         return self();
     }
@@ -123,5 +101,29 @@ public class LiveApplication extends Application {
             return castSession.getRemoteMediaClient() != null;
         }
         return false;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mSelf = this;
+
+
+        if (LiveApplication.isDebugBuild()) {
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                // This process is dedicated to LeakCanary for heap analysis.
+                // You should not init your app in this process.
+                return;
+            }
+            LeakCanary.install(this);
+        }
+
+
+        //setupChromeCast();
+    }
+
+    private void setupChromeCast() {
+        castContext = CastContext.getSharedInstance(this);
+        chromecastSessionManagerListener = new ChromeCastSessionManagerListener();
     }
 }

@@ -6,14 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.MediaRouteButton;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,8 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.webkit.WebView;
 import android.widget.TextView;
-
-import com.google.android.gms.cast.framework.CastButtonFactory;
 
 public class Utils {
 
@@ -154,21 +145,4 @@ public class Utils {
         return String.format("%s(%d)", versionName, versionCode);
 
     }
-
-    public static void setupMediaRouteButton(Context context, MediaRouteButton mediaRouteButton, @ColorRes int colorRes) {
-        CastButtonFactory.setUpMediaRouteButton(context, mediaRouteButton);
-
-        Context castContext = new ContextThemeWrapper(context, android.support.v7.mediarouter.R.style.Theme_MediaRouter);
-        TypedArray a = castContext.obtainStyledAttributes(null,
-                android.support.v7.mediarouter.R.styleable.MediaRouteButton, android.support.v7.mediarouter.R.attr.mediaRouteButtonStyle, 0);
-        Drawable drawable = a.getDrawable(
-                android.support.v7.mediarouter.R.styleable.MediaRouteButton_externalRouteEnabledDrawable);
-        a.recycle();
-
-        if (drawable != null) {
-            DrawableCompat.setTint(drawable, ContextCompat.getColor(context, colorRes));
-            mediaRouteButton.setRemoteIndicatorDrawable(drawable);
-        }
-    }
-
 }

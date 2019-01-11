@@ -20,10 +20,6 @@ import com.devbrackets.android.exomedia.listener.OnErrorListener;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.google.android.exoplayer2.util.EventLogger;
-import com.google.android.gms.cast.framework.CastSession;
-import com.google.android.gms.cast.framework.SessionManagerListener;
-import com.google.android.gms.cast.framework.media.RemoteMediaClient;
-import com.iseasoft.isealive.listeners.ChromeCastSessionManagerListener;
 import com.iseasoft.isealive.listeners.FragmentEventListener;
 import com.iseasoft.isealive.models.Match;
 
@@ -70,9 +66,6 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
     private FragmentEventListener fragmentEventListener;
     private ISeaLiveVideoController mVideoController;
 
-    private CastSession mCastSession;
-    private SessionManagerListener<CastSession> mSessionManagerListener;
-
     private long lastOsdDispTime;
     private boolean nowOn;
 
@@ -118,11 +111,7 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
         View view = inflater.inflate(R.layout.fragment_player, container, false);
         unbinder = ButterKnife.bind(this, view);
         if (savedInstanceState == null) {
-            if (LiveApplication.isChromeCastConnected()) {
-                setupChromeCastView();
-            } else {
-                setupVideoView();
-            }
+            setupVideoView();
         }
 
         return view;
@@ -218,8 +207,6 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
         mVideoController = null;
         match = null;
         fragmentEventListener = null;
-        mCastSession = null;
-        mSessionManagerListener = null;
         unbinder.unbind();
     }
 
@@ -307,16 +294,5 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
             mVideoController.setReloadButtonVisible(true);
         }
         return false;
-    }
-
-
-    private void setupChromeCastView() {
-        CastSession castSession = LiveApplication.getCastContext().getSessionManager().getCurrentCastSession();
-        RemoteMediaClient remoteMediaClient = castSession.getRemoteMediaClient();
-        if (remoteMediaClient != null) {
-            ChromeCastSessionManagerListener chromecastSessionManagerListener = LiveApplication.getChromeCastManagerListener();
-            chromecastSessionManagerListener.setMatch(match);
-            chromecastSessionManagerListener.sendMatch();
-        }
     }
 }

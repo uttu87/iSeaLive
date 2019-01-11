@@ -5,7 +5,15 @@
         <value></value>
     </entry>
     <entry>
-        <key>use_facebook_ads_first</key>
+        <key>use_admob</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>use_startapp</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>use_richadx</key>
         <value>false</value>
     </entry>
     <entry>
@@ -15,5 +23,9 @@
     <entry>
         <key>active_ads</key>
         <value>false</value>
+    </entry>
+    <entry>
+        <key>interstitial_ads_limit</key>
+        <value>5</value>
     </entry>
 </defaultsMap><!-- END xml_defaults -->

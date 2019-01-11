@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -22,8 +21,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.iseasoft.isealive.adapters.CanvasAdapter;
 import com.iseasoft.isealive.adapters.LeagueAdapter;
 import com.iseasoft.isealive.api.APIListener;
@@ -48,7 +45,6 @@ import butterknife.Unbinder;
 
 import static com.iseasoft.isealive.ISeaLiveConstants.ACTIVE_ADS_KEY;
 import static com.iseasoft.isealive.ISeaLiveConstants.CAROUSEL_ID;
-import static com.iseasoft.isealive.ISeaLiveConstants.USE_FACEBOOK_ADS_FIRST;
 import static com.iseasoft.isealive.ISeaLiveConstants.USE_ONLINE_DATA_FLAG_KEY;
 
 @SuppressWarnings("WeakerAccess")
@@ -269,7 +265,6 @@ public class LiveFragment extends BaseFragment {
         }
         mCanvasAdapter = new CanvasAdapter(getContext(), mLeagues);
         mCanvasAdapter.setOnCanvasListener(league -> {
-            //TODO show league match
             ((BaseActivity) getActivity()).navigationToLeagueScreen(league);
         });
         mCanvasAdapter.setItemClickListener(new LeagueAdapter.ItemClickListener() {

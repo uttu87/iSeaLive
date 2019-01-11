@@ -2,9 +2,11 @@
     <string name="cast_receiver_app_id">4F8B3483</string>
     <string name="start_app_id">211223704</string>
     <string name="fan_app_id">222040122005121_222040975338369</string>
-    <string name="admob_app_id">ca-app-pub-7057641842033524~3782582161</string>
-    <string name="banner_ad_unit_id">/21617116612/136701545971938</string>
-    <string name="interstitial_ad_unit_id">/21617116612/336701545971938</string>
+    <string name="admob_app_id">ca-app-pub-1317879472074270~2408756906</string>
+    <string name="admob_banner_ad_unit_id">ca-app-pub-1317879472074270/6268110861</string>
+    <string name="admob_interstitial_ad_unit_id">ca-app-pub-1317879472074270/4460205171</string>
+    <string name="richadx_banner_ad_unit_id">/21617116612/136701545971938</string>
+    <string name="richadx_interstitial_ad_unit_id">/21617116612/336701545971938</string>
 
     <string name="admob_app_id_test">ca-app-pub-3940256099942544~3347511713</string>
     <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>

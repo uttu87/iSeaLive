@@ -16,7 +16,10 @@ public class ISeaLiveConstants {
     public static final String CONFIG_COLLECTION = "config";
     public static final String USE_ONLINE_DATA_FLAG_KEY = "use_online_data_flag";
     public static final String ACTIVE_ADS_KEY = "active_ads";
-    public static final String USE_FACEBOOK_ADS_FIRST = "use_facebook_ads_first";
+    public static final String USE_ADMOB = "use_admob";
+    public static final String USE_STARTAPP = "use_startapp";
+    public static final String USE_RICHADX = "use_richadx";
     public static final String TODAY_HIGHLIGHT_STATUS = "today_highlight_status";
+    public static final String INTERSTITIAL_ADS_LIMIT = "interstitial_ads_limit";
 
 }

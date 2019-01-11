@@ -6,7 +6,6 @@ import android.content.Context;
 import com.google.android.gms.cast.framework.CastContext;
 import com.google.android.gms.cast.framework.CastSession;
 import com.iseasoft.isealive.listeners.ChromeCastSessionManagerListener;
-import com.squareup.leakcanary.LeakCanary;
 
 public class LiveApplication extends Application {
 
@@ -14,8 +13,11 @@ public class LiveApplication extends Application {
     private static LiveApplication mSelf;
     private static boolean useOnlineData;
     private static boolean activeAds;
-    private static boolean useFacebookAdsFirst;
+    private static boolean useAdMob;
+    private static boolean useStartApp;
+    private static boolean useRichAdx;
     private static String todayHighlightStatus;
+    private static long interstitialAdsLimit;
 
     private static CastContext castContext;
     private static ChromeCastSessionManagerListener chromecastSessionManagerListener;
@@ -40,12 +42,36 @@ public class LiveApplication extends Application {
         LiveApplication.activeAds = activeAds;
     }
 
-    public static boolean isUseFacebookAdsFirst() {
-        return useFacebookAdsFirst;
+    public static boolean isUseAdMob() {
+        return useAdMob;
     }
 
-    public static void setUseFacebookAdsFirst(boolean useFacebookAdsFirst) {
-        LiveApplication.useFacebookAdsFirst = useFacebookAdsFirst;
+    public static void setUseAdMob(boolean useAdMob) {
+        LiveApplication.useAdMob = useAdMob;
+    }
+
+    public static boolean isUseStartApp() {
+        return useStartApp;
+    }
+
+    public static void setUseStartApp(boolean useStartApp) {
+        LiveApplication.useStartApp = useStartApp;
+    }
+
+    public static boolean isUseRichAdx() {
+        return useRichAdx;
+    }
+
+    public static void setUseRichAdx(boolean useRichAdx) {
+        LiveApplication.useRichAdx = useRichAdx;
+    }
+
+    public static long getInterstitialAdsLimit() {
+        return interstitialAdsLimit;
+    }
+
+    public static void setInterstitialAdsLimit(long interstitialAdsLimit) {
+        LiveApplication.interstitialAdsLimit = interstitialAdsLimit;
     }
 
     public static String getTodayHighlightStatus() {
@@ -107,8 +133,7 @@ public class LiveApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mSelf = this;
-
-
+        /*
         if (LiveApplication.isDebugBuild()) {
             if (LeakCanary.isInAnalyzerProcess(this)) {
                 // This process is dedicated to LeakCanary for heap analysis.
@@ -117,6 +142,7 @@ public class LiveApplication extends Application {
             }
             LeakCanary.install(this);
         }
+        */
 
 
         //setupChromeCast();

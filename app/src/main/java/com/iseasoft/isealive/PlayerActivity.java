@@ -55,13 +55,15 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
             match = (Match) getIntent().getExtras().getSerializable(MATCH_KEY);
         }
 
-        if (match.isYoutube()) {
-            setupYoutubePlayer(match);
-        } else {
-            setupPlayer(match);
-        }
+        if (match != null) {
+            if (match.isYoutube()) {
+                setupYoutubePlayer(match);
+            } else {
+                setupPlayer(match);
+            }
 
-        setupMatchList(match);
+            setupMatchList(match);
+        }
         checkAndShowReviewDialog();
     }
 

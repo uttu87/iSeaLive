@@ -177,9 +177,11 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
             @Override
             public void onAdClosed() {
                 // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder()
-                        .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
-                        .build());
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.loadAd(new AdRequest.Builder()
+                            .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
+                            .build());
+                }
             }
 
         });

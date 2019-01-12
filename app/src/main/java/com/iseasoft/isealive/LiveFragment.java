@@ -60,7 +60,7 @@ public class LiveFragment extends BaseFragment {
     RecyclerView rvLeagueList;
     long homeScreenRequestStartedAt;
     private boolean init = false;
-    private ArrayList<League> mLeagues = new ArrayList<>();
+    private ArrayList<League> mLeagues;
     private League mCarouselLeague;
     private CanvasAdapter mCanvasAdapter;
 
@@ -73,6 +73,7 @@ public class LiveFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
+        mLeagues = new ArrayList<>();
         return view;
     }
 
@@ -176,13 +177,17 @@ public class LiveFragment extends BaseFragment {
     }
 
     private void showShimmer() {
-        mShimmerViewContainer.setVisibility(View.VISIBLE);
-        mShimmerViewContainer.startShimmer();
+        if (mShimmerViewContainer != null) {
+            mShimmerViewContainer.setVisibility(View.VISIBLE);
+            mShimmerViewContainer.startShimmer();
+        }
     }
 
     private void hideShimmer() {
-        mShimmerViewContainer.startShimmer();
-        mShimmerViewContainer.setVisibility(View.GONE);
+        if (mShimmerViewContainer != null) {
+            mShimmerViewContainer.startShimmer();
+            mShimmerViewContainer.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -212,6 +217,9 @@ public class LiveFragment extends BaseFragment {
     }
 
     private void fetchLocalData() {
+        if (mLeagues == null) {
+            return;
+        }
         if (mLeagues.size() > 0) {
             swipeRefreshLayout.setRefreshing(false);
             hideShimmer();

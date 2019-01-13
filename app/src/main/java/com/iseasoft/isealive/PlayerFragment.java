@@ -160,7 +160,7 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
         if (!isStateSafe()) {
             return;
         }
-        ((BaseActivity) getActivity()).showInterstitialAds();
+        showAds();
 
         if (videoView != null) {
             videoView.start();
@@ -174,6 +174,12 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
             if (currentPosition > 0) {
                 videoView.seekTo(currentPosition);
             }
+        }
+    }
+
+    private void showAds() {
+        if (!isFullscreen) {
+            ((PlayerActivity) getActivity()).setupFullScreenAds();
         }
     }
 
@@ -254,7 +260,7 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
 
         if (match.isLive() || Integer.valueOf(match.getLeague()) == SPORT_TV_ID) {
             videoView.restart();
-            ((BaseActivity) getActivity()).showInterstitialAds();
+            showAds();
             return;
         }
         if (mVideoController != null) {
@@ -263,7 +269,7 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
         if (isFullscreen) {
             screenModeChange(false, true);
         }
-        ((BaseActivity) getActivity()).showInterstitialAds();
+        showAds();
     }
 
     @Override

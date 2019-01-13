@@ -22,11 +22,9 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
-import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.iseasoft.isealive.models.League;
@@ -64,22 +62,21 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
     TextView todayHighlight;
     @BindView(R.id.publisherAdView)
     PublisherAdView publisherAdView;
-    PublisherInterstitialAd publisherInterstitialAd;
     @BindView(R.id.startAppBanner)
     Banner startAppBanner;
     @BindView(R.id.adView)
     AdView mAdView;
-    InterstitialAd mInterstitialAd;
-    private StartAppAd startAppAd;
-    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         unbinder = ButterKnife.bind(this);
         showFootContent(true);
-        setupAdMob();
-        setupPublisherAds();
+        if (LiveApplication.isUseAdMob()) {
+            setupAdMob();
+        } else if (LiveApplication.isUseRichAdx()) {
+            setupPublisherAds();
+        }
         initStartAppSdk();
         LiveApplication.screenCount++;
     }
@@ -99,14 +96,10 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
                 System.currentTimeMillis(),
                 true);
         StartAppAd.disableSplash();
-        if (startAppAd == null) {
-            startAppAd = new StartAppAd(this);
-        }
     }
 
     private void setupPublisherAds() {
         setupPublisherBannerAds();
-        setupPublisherInterstitialAds();
     }
 
 
@@ -139,52 +132,10 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
         });
     }
 
-
-    private void setupPublisherInterstitialAds() {
-        if (publisherInterstitialAd == null) {
-            publisherInterstitialAd = new PublisherInterstitialAd(this);
-            publisherInterstitialAd.setAdUnitId(getString(R.string.richadx_interstitial_ad_unit_id));
-        }
-        requestNewInterstitial();
-    }
-
-    private void requestNewInterstitial() {
-        PublisherAdRequest adRequest = new PublisherAdRequest.Builder()
-                .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
-                .build();
-
-        publisherInterstitialAd.loadAd(adRequest);
-
-    }
-
-
     private void setupAdMob() {
         MobileAds.initialize(this,
                 getString(R.string.admob_app_id));
         setupBannerAds();
-        setupInterstitialAds();
-    }
-
-    private void setupInterstitialAds() {
-        if (mInterstitialAd == null) {
-            mInterstitialAd = new InterstitialAd(this);
-            mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_ad_unit_id));
-        }
-        mInterstitialAd.loadAd(new AdRequest.Builder()
-                .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
-                .build());
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                if (mInterstitialAd != null) {
-                    mInterstitialAd.loadAd(new AdRequest.Builder()
-                            .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
-                            .build());
-                }
-            }
-
-        });
     }
 
     private void setupBannerAds() {
@@ -216,30 +167,6 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
         });
     }
 
-
-    public void showInterstitialAds() {
-        if (LiveApplication.screenCount >= LiveApplication.getInterstitialAdsLimit()) {
-            LiveApplication.screenCount = 0;
-            if (LiveApplication.isUseAdMob()) {
-                if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                } else if (startAppAd != null && startAppAd.isReady()) {
-                    startAppAd.showAd();
-                }
-            } else if (LiveApplication.isUseRichAdx()) {
-                if (publisherInterstitialAd != null && publisherInterstitialAd.isLoaded()) {
-                    publisherInterstitialAd.show();
-                } else if (startAppAd != null && startAppAd.isReady()) {
-                    startAppAd.showAd();
-                }
-            } else {
-                if (startAppAd != null && startAppAd.isReady()) {
-                    startAppAd.showAd();
-                }
-            }
-        }
-    }
-
     /*
     public void showBannerAds(boolean isShow) {
         if (mAdView != null) {
@@ -258,10 +185,6 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
         if (publisherAdView != null) {
             publisherAdView.resume();
         }
-
-        if (startAppAd != null) {
-            startAppAd.onResume();
-        }
     }
 
     @Override
@@ -273,10 +196,6 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
 
         if (publisherAdView != null) {
             publisherAdView.pause();
-        }
-
-        if (startAppAd != null) {
-            startAppAd.onPause();
         }
     }
 
@@ -310,9 +229,6 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
         if (mAdView != null) {
             mAdView.destroy();
         }
-        startAppAd = null;
-        publisherInterstitialAd = null;
-        mInterstitialAd = null;
         unbinder.unbind();
         unbinder = null;
     }

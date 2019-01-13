@@ -10,11 +10,17 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 import com.iseasoft.isealive.listeners.FragmentEventListener;
 import com.iseasoft.isealive.listeners.OnConfirmationDialogListener;
 import com.iseasoft.isealive.models.Match;
 import com.iseasoft.isealive.references.SharedPrefs;
 import com.iseasoft.isealive.widgets.ConfirmationDialog;
+import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import butterknife.OnClick;
 import butterknife.Optional;
@@ -29,10 +35,81 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
     private final int APP_OPEN_COUNT_LIMIT = 10;
     Match match;
 
+    private PublisherInterstitialAd publisherInterstitialAd;
+    private InterstitialAd mInterstitialAd;
+    private StartAppAd startAppAd;
+
     private boolean isImmersiveAvailable() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
+    private void setupPublisherInterstitialAds() {
+        if (publisherInterstitialAd == null) {
+            publisherInterstitialAd = new PublisherInterstitialAd(this);
+            publisherInterstitialAd.setAdUnitId(getString(R.string.richadx_interstitial_ad_unit_id));
+        }
+        requestNewInterstitial();
+    }
+
+    private void requestNewInterstitial() {
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder()
+                .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
+                .build();
+
+        publisherInterstitialAd.loadAd(adRequest);
+
+        publisherInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if (publisherInterstitialAd != null) {
+                    publisherInterstitialAd.show();
+                }
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                if (startAppAd != null && startAppAd.isReady()) {
+                    startAppAd.showAd();
+                }
+            }
+        });
+    }
+
+
+    private void setupInterstitialAds() {
+        if (mInterstitialAd == null) {
+            mInterstitialAd = new InterstitialAd(this);
+            mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_ad_unit_id));
+        }
+        mInterstitialAd.loadAd(new AdRequest.Builder()
+                .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
+                .build());
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show();
+                }
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                if (startAppAd != null && startAppAd.isReady()) {
+                    startAppAd.showAd();
+                }
+            }
+        });
+    }
+
+    private void setupStartAppAd() {
+        if (startAppAd == null) {
+            startAppAd = new StartAppAd(this);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +142,19 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
             setupMatchList(match);
         }
         checkAndShowReviewDialog();
+    }
+
+    public void setupFullScreenAds() {
+        if (LiveApplication.screenCount >= LiveApplication.getInterstitialAdsLimit()) {
+            LiveApplication.screenCount = 0;
+            if (LiveApplication.isUseAdMob()) {
+                setupInterstitialAds();
+            } else if (LiveApplication.isUseRichAdx()) {
+                setupPublisherInterstitialAds();
+            }
+            setupStartAppAd();
+        }
+
     }
 
     private void checkAndShowReviewDialog() {
@@ -180,5 +270,29 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
                 shareApp(match);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (startAppAd != null) {
+            startAppAd.onResume();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (startAppAd != null) {
+            startAppAd.onPause();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mInterstitialAd = null;
+        publisherInterstitialAd = null;
+        startAppAd = null;
     }
 }

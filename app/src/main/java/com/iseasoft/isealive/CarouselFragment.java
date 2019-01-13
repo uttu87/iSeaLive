@@ -14,9 +14,6 @@ import android.widget.FrameLayout;
 import com.iseasoft.isealive.adapters.CarouselPagerAdapter;
 import com.iseasoft.isealive.models.League;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -32,8 +29,9 @@ public class CarouselFragment extends BaseFragment {
     @BindView(R.id.indicator)
     CircleIndicator indicator;
     Unbinder unbinder;
-    Timer timer;
-    RemindTask remindTask;
+    Handler mHandler;
+    Runnable mRunnable;
+
     int page = 0;
     private League league;
     private CarouselPagerAdapter carouselPagerAdapter;
@@ -106,47 +104,42 @@ public class CarouselFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        timer.cancel();
-        remindTask.cancel();
-        remindTask = null;
-        timer = null;
+        if (mHandler != null) {
+            mHandler.removeCallbacks(mRunnable);
+        }
+        mHandler = null;
+        mRunnable = null;
         league = null;
         carouselPagerAdapter = null;
         unbinder.unbind();
     }
 
     public void pageSwitcher(int seconds) {
-        if (timer == null) {
-            timer = new Timer();
-        }
+        mHandler = new Handler();
+        mRunnable = new Runnable() {
 
-        if (remindTask == null) {
-            remindTask = new RemindTask();
-        }
-        timer.scheduleAtFixedRate(remindTask, 0, seconds * 1000);
+            @Override
+            public void run() {
+                changePage();
+                mHandler.postDelayed(mRunnable, 1000 * seconds);
+            }
+        };
+        mHandler.postDelayed(mRunnable, 1000 * seconds);
     }
 
-    class RemindTask extends TimerTask {
-
-        @Override
-        public void run() {
-
-            new Handler(Looper.getMainLooper()).post(() -> {
-                if (carouselPagerAdapter == null) {
-                    return;
-                }
-
-                if (viewPager == null) {
-                    return;
-                }
-
-                page = viewPager.getCurrentItem() + 1;
-                if (page == carouselPagerAdapter.getCount()) {
-                    page = 0;
-                }
-                viewPager.setCurrentItem(page, true);
-            });
+    private void changePage() {
+        if (carouselPagerAdapter == null) {
+            return;
         }
-    }
 
+        if (viewPager == null) {
+            return;
+        }
+
+        page = viewPager.getCurrentItem() + 1;
+        if (page == carouselPagerAdapter.getCount()) {
+            page = 0;
+        }
+        viewPager.setCurrentItem(page, true);
+    }
 }

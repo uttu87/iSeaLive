@@ -90,7 +90,7 @@ public class HighlightFragment extends BaseFragment {
         }
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.fragment_carousel, carouselFragment, CarouselFragment.TAG);
-        ft.commit();
+        ft.commitAllowingStateLoss();
         fm.executePendingTransactions();
     }
 
@@ -176,6 +176,11 @@ public class HighlightFragment extends BaseFragment {
     private void hideShimmer() {
         mShimmerViewContainer.startShimmer();
         mShimmerViewContainer.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
     }
 
     @Override

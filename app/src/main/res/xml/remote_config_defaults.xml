@@ -18,11 +18,11 @@
     </entry>
     <entry>
         <key>use_online_data_flag</key>
-        <value>false</value>
+        <value>true</value>
     </entry>
     <entry>
         <key>active_ads</key>
-        <value>false</value>
+        <value>true</value>
     </entry>
     <entry>
         <key>interstitial_ads_limit</key>

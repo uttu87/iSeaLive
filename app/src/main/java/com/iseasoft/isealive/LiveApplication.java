@@ -7,13 +7,13 @@ public class LiveApplication extends Application {
 
     public static int screenCount = 0;
     private static LiveApplication mSelf;
-    private static boolean useOnlineData;
-    private static boolean activeAds;
-    private static boolean useAdMob;
-    private static boolean useStartApp;
-    private static boolean useRichAdx;
+    private static boolean useOnlineData = true;
+    private static boolean activeAds = true;
+    private static boolean useAdMob = true;
+    private static boolean useStartApp = false;
+    private static boolean useRichAdx = false;
     private static String todayHighlightStatus;
-    private static long interstitialAdsLimit;
+    private static long interstitialAdsLimit = 5;
 
     public static boolean isUseOnlineData() {
         return useOnlineData;

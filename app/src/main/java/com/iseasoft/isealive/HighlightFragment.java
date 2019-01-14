@@ -210,6 +210,10 @@ public class HighlightFragment extends BaseFragment {
     }
 
     private void fetchLocalData() {
+        if (mLeagues == null) {
+            return;
+        }
+
         if (mLeagues.size() > 0) {
             swipeRefreshLayout.setRefreshing(false);
             hideShimmer();

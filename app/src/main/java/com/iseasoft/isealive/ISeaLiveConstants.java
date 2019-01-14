@@ -2,6 +2,9 @@ package com.iseasoft.isealive;
 
 public class ISeaLiveConstants {
     public static final int SCREEN_LIMIT_TO_SHOW_INTERSTITIAL_ADS = 5;
+    public static final int ADMOB_TYPE = 0;
+    public static final int RICHADX_TYPE = 1;
+    public static final int STARTAPP_TYPE = 2;
 
     public static final String LEAGUE_COLLECTION = "league";
     public static final int CAROUSEL_ID = 1000;
@@ -21,5 +24,6 @@ public class ISeaLiveConstants {
     public static final String USE_RICHADX = "use_richadx";
     public static final String TODAY_HIGHLIGHT_STATUS = "today_highlight_status";
     public static final String INTERSTITIAL_ADS_LIMIT = "interstitial_ads_limit";
+    public static final String ADS_TYPE = "ads_type";
 
 }

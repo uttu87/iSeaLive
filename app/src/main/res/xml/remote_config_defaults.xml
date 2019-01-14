@@ -28,4 +28,8 @@
         <key>interstitial_ads_limit</key>
         <value>5</value>
     </entry>
+    <entry>
+        <key>ads_type</key>
+        <value>0</value>
+    </entry>
 </defaultsMap><!-- END xml_defaults -->

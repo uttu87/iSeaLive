@@ -14,6 +14,7 @@ public class LiveApplication extends Application {
     private static boolean useRichAdx = false;
     private static String todayHighlightStatus;
     private static long interstitialAdsLimit = 5;
+    private static long adsType = 0;
 
     public static boolean isUseOnlineData() {
         return useOnlineData;
@@ -65,6 +66,14 @@ public class LiveApplication extends Application {
 
     public static void setInterstitialAdsLimit(long interstitialAdsLimit) {
         LiveApplication.interstitialAdsLimit = interstitialAdsLimit;
+    }
+
+    public static long getAdsType() {
+        return adsType;
+    }
+
+    public static void setAdsType(long adsType) {
+        LiveApplication.adsType = adsType;
     }
 
     public static String getTodayHighlightStatus() {

@@ -25,9 +25,12 @@ import com.startapp.android.publish.adsCommon.StartAppAd;
 import butterknife.OnClick;
 import butterknife.Optional;
 
+import static com.iseasoft.isealive.ISeaLiveConstants.ADMOB_TYPE;
 import static com.iseasoft.isealive.ISeaLiveConstants.CAROUSEL_ID;
 import static com.iseasoft.isealive.ISeaLiveConstants.MATCH_KEY;
+import static com.iseasoft.isealive.ISeaLiveConstants.RICHADX_TYPE;
 import static com.iseasoft.isealive.ISeaLiveConstants.SPORT_TV_ID;
+import static com.iseasoft.isealive.ISeaLiveConstants.STARTAPP_TYPE;
 
 public class PlayerActivity extends BaseActivity implements FragmentEventListener {
 
@@ -115,6 +118,7 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_player);
         super.onCreate(savedInstanceState);
+        setupStartAppAd();
 
         if (getIntent() != null && !TextUtils.isEmpty(getIntent().getStringExtra(ISeaLiveConstants.PUSH_URL_KEY))) {
             String matchUrl = getIntent().getStringExtra(ISeaLiveConstants.PUSH_URL_KEY);
@@ -147,14 +151,28 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
     public void setupFullScreenAds() {
         if (LiveApplication.screenCount >= LiveApplication.getInterstitialAdsLimit()) {
             LiveApplication.screenCount = 0;
-            if (LiveApplication.isUseAdMob()) {
-                setupInterstitialAds();
-            } else if (LiveApplication.isUseRichAdx()) {
-                setupPublisherInterstitialAds();
+            int adsType = (int) LiveApplication.getAdsType();
+            switch (adsType) {
+                case ADMOB_TYPE:
+                    setupInterstitialAds();
+                    break;
+                case RICHADX_TYPE:
+                    setupPublisherInterstitialAds();
+                    break;
+                case STARTAPP_TYPE:
+                    showStartApp();
+                    break;
+                default:
+                    setupInterstitialAds();
+                    break;
             }
-            setupStartAppAd();
         }
+    }
 
+    private void showStartApp() {
+        if (startAppAd != null && startAppAd.isReady()) {
+            startAppAd.showAd();
+        }
     }
 
     private void checkAndShowReviewDialog() {

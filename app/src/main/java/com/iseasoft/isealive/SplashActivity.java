@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.iseasoft.isealive.ISeaLiveConstants.ACTIVE_ADS_KEY;
+import static com.iseasoft.isealive.ISeaLiveConstants.ADS_TYPE;
 import static com.iseasoft.isealive.ISeaLiveConstants.INTERSTITIAL_ADS_LIMIT;
 import static com.iseasoft.isealive.ISeaLiveConstants.TODAY_HIGHLIGHT_STATUS;
 import static com.iseasoft.isealive.ISeaLiveConstants.USE_ADMOB;
@@ -171,5 +172,6 @@ public class SplashActivity extends AppCompatActivity {
         LiveApplication.setUseStartApp(mFirebaseRemoteConfig.getBoolean(USE_STARTAPP));
         LiveApplication.setUseRichAdx(mFirebaseRemoteConfig.getBoolean(USE_RICHADX));
         LiveApplication.setInterstitialAdsLimit(mFirebaseRemoteConfig.getLong(INTERSTITIAL_ADS_LIMIT));
+        LiveApplication.setAdsType(mFirebaseRemoteConfig.getLong(ADS_TYPE));
     }
 }

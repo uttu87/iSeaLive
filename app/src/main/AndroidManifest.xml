@@ -35,7 +35,9 @@
         <activity
             android:name=".PlayerActivity"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".AdminActivity" />
+        <activity
+            android:name=".AdminActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".services.ISeaLiveFirebaseMessagingService"
@@ -67,7 +69,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-            android:value="true"/>
+            android:value="true" />
 
     </application>
 

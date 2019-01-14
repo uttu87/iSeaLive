@@ -29,7 +29,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.iseasoft.isealive.models.League;
 import com.iseasoft.isealive.models.Match;
-import com.startapp.android.publish.ads.banner.Banner;
 import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.StartAppSDK;
 
@@ -46,9 +45,11 @@ import butterknife.OnClick;
 import butterknife.Optional;
 import butterknife.Unbinder;
 
+import static com.iseasoft.isealive.ISeaLiveConstants.ADMOB_TYPE;
 import static com.iseasoft.isealive.ISeaLiveConstants.GOOGLE_PLAY_APP_LINK;
 import static com.iseasoft.isealive.ISeaLiveConstants.LEAGUE_KEY;
 import static com.iseasoft.isealive.ISeaLiveConstants.MATCH_KEY;
+import static com.iseasoft.isealive.ISeaLiveConstants.RICHADX_TYPE;
 
 public abstract class BaseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -62,8 +63,6 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
     TextView todayHighlight;
     @BindView(R.id.publisherAdView)
     PublisherAdView publisherAdView;
-    @BindView(R.id.startAppBanner)
-    Banner startAppBanner;
     @BindView(R.id.adView)
     AdView mAdView;
 
@@ -72,13 +71,24 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
         super.onCreate(savedInstanceState);
         unbinder = ButterKnife.bind(this);
         showFootContent(true);
-        if (LiveApplication.isUseAdMob()) {
-            setupAdMob();
-        } else if (LiveApplication.isUseRichAdx()) {
-            setupPublisherAds();
+        setupAds();
+        LiveApplication.screenCount++;
+    }
+
+    private void setupAds() {
+        int adsType = (int) LiveApplication.getAdsType();
+        switch (adsType) {
+            case ADMOB_TYPE:
+                setupAdMob();
+                break;
+            case RICHADX_TYPE:
+                setupPublisherAds();
+                break;
+            default:
+                setupAdMob();
+                break;
         }
         initStartAppSdk();
-        LiveApplication.screenCount++;
     }
 
     private void setupGoogleApi() {
@@ -110,23 +120,10 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
         publisherAdView.loadAd(adRequest);
         publisherAdView.setAdListener(new AdListener() {
             @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                if (publisherAdView != null) {
-                    publisherAdView.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                if (LiveApplication.isUseRichAdx()) {
-                    if (publisherAdView != null) {
-                        if (startAppBanner != null) {
-                            startAppBanner.setVisibility(View.GONE);
-                        }
-                        publisherAdView.setVisibility(View.VISIBLE);
-                    }
+                if (publisherAdView != null) {
+                    publisherAdView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -145,23 +142,10 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
         mAdView.loadAd(adRequest);
         mAdView.setAdListener(new AdListener() {
             @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                if (mAdView != null) {
-                    mAdView.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                if (LiveApplication.isUseAdMob()) {
-                    if (mAdView != null) {
-                        if (startAppBanner != null) {
-                            startAppBanner.setVisibility(View.GONE);
-                        }
-                        mAdView.setVisibility(View.VISIBLE);
-                    }
+                if (mAdView != null) {
+                    mAdView.setVisibility(View.VISIBLE);
                 }
             }
         });

@@ -12,11 +12,11 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.iseasoft.isealive"
+        applicationId "com.iseasoft.iseagoals"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 204
-        versionName "2.3"
+        versionCode 205
+        versionName "2.4"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

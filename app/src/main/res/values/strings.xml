@@ -5,22 +5,22 @@
     <string name="admob_app_id">ca-app-pub-1317879472074270~2408756906</string>
     <string name="admob_banner_ad_unit_id">ca-app-pub-1317879472074270/6268110861</string>
     <string name="admob_interstitial_ad_unit_id">ca-app-pub-1317879472074270/4460205171</string>
-    <string name="richadx_banner_ad_unit_id">/21617116612/136701545971938</string>
-    <string name="richadx_interstitial_ad_unit_id">/21617116612/336701545971938</string>
+    <string name="richadx_banner_ad_unit_id">/21617116612/138751548509764</string>
+    <string name="richadx_interstitial_ad_unit_id">/21617116612/338751548509764</string>
 
     <string name="admob_app_id_test">ca-app-pub-3940256099942544~3347511713</string>
     <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
     <string name="interstitial_ad_unit_id_test">ca-app-pub-3940256099942544/1033173712</string>
 
-    <string name="share_subject">Check out iSeaLive - Live &amp; Highlights</string>
-    <string name="share_boday">Enjoy football matches with iSeaLive</string>
+    <string name="share_subject">Check out iSeaGoals - Live &amp; Highlights</string>
+    <string name="share_boday">Enjoy football matches with iSeaGoals</string>
     <string name="share_app_title">Share this application via</string>
     <string name="share_video_title">Share this video via</string>
     <string name="common_dialog_ok">OK, sure</string>
     <string name="common_dialog_yes">Yes!</string>
     <string name="common_dialog_cancel">No, thanks</string>
     <string name="common_dialog_not">Not really</string>
-    <string name="question">Enjoying iSeaLive - Live &amp; Highlight?</string>
+    <string name="question">Enjoying iSeaGoals - Live &amp; Highlight?</string>
     <string name="rating">How about a rating on the Play Store, then?</string>
     <string name="feedback">Would you mind to give us some feedback?</string>
 

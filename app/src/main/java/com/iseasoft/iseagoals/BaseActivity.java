@@ -1,6 +1,7 @@
 package com.iseasoft.iseagoals;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.arch.lifecycle.Lifecycle;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,8 +29,10 @@ import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.iseasoft.iseagoals.listeners.OnConfirmationDialogListener;
 import com.iseasoft.iseagoals.models.League;
 import com.iseasoft.iseagoals.models.Match;
+import com.iseasoft.iseagoals.widgets.ConfirmationDialog;
 import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.StartAppSDK;
 
@@ -335,4 +339,49 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (isLastBackStack()) {
+            ConfirmationDialog dialog = ConfirmationDialog.newInstance(
+                    getString(R.string.exit_app_dialog_title),
+                    "",
+                    getString(R.string.exit_app_dialog_ok),
+                    new OnConfirmationDialogListener() {
+                        @Override
+                        public void onConfirmed() {
+                            BaseActivity.super.onBackPressed();
+                        }
+
+                        @Override
+                        public void onCanceled() {
+                        }
+                    });
+            dialog.setQuitPopup(true);
+            dialog.show(getSupportFragmentManager(), ConfirmationDialog.TAG);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private boolean isLastBackStack() {
+        return isLastActivityStack() && isLastFragmentStack();
+    }
+
+    private boolean isLastActivityStack() {
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> latestTask = am.getRunningTasks(1);
+        if (latestTask == null && latestTask.size() != 1) {
+            return false;
+        }
+        ActivityManager.RunningTaskInfo task = latestTask.get(0);
+        return task.numActivities == 1
+                && task.topActivity.getClassName().equals(this.getClass().getName());
+    }
+
+    private boolean isLastFragmentStack() {
+        FragmentManager fm = getSupportFragmentManager();
+        return fm.getBackStackEntryCount() == 0;
+    }
+
 }

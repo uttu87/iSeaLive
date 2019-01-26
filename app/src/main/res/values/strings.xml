@@ -24,6 +24,10 @@
     <string name="rating">How about a rating on the Play Store, then?</string>
     <string name="feedback">Would you mind to give us some feedback?</string>
 
+    <string name="exit_app_dialog_title">Are you sure you want to exit?</string>
+    <string name="exit_app_dialog_ok">Yes</string>
+    <string name="exit_app_dialog_cancel">No</string>
+
     <string name="gdpr_okBtn">Continue</string>
     <string name="gdpr_cancelBtn">No Thanks</string>
     <string name="gdpr_title">Would like us to present you with personalized ads?</string>

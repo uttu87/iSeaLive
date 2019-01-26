@@ -18,6 +18,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
 import com.iseasoft.iseagoals.R;
 import com.iseasoft.iseagoals.listeners.OnConfirmationDialogListener;
 
@@ -32,6 +35,8 @@ public class ConfirmationDialog extends DialogFragment {
     private static final int NO_MODULE = -1;
 
 
+    @BindView(R.id.publisherAdView)
+    PublisherAdView publisherAdView;
     @BindView(R.id.popup_title)
     TextView popupTitle;
     @BindView(R.id.popup_description)
@@ -57,6 +62,13 @@ public class ConfirmationDialog extends DialogFragment {
     protected int moduleLayout;
     private boolean isQuitPopup;
 
+    public boolean isQuitPopup() {
+        return isQuitPopup;
+    }
+
+    public void setQuitPopup(boolean quitPopup) {
+        isQuitPopup = quitPopup;
+    }
 
     public static ConfirmationDialog newInstance(String title, @Nullable String description, String okText, OnConfirmationDialogListener listener) {
         return newInstance(title, description, okText, NO_MODULE, listener);
@@ -82,6 +94,7 @@ public class ConfirmationDialog extends DialogFragment {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.fragment_confirmation_popup, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setupAds();
         popupTitle.setText(title);
         if (description != null) {
             popupDescription.setText(description);
@@ -100,6 +113,22 @@ public class ConfirmationDialog extends DialogFragment {
 
         btnOk.setText(okText);
         return view;
+    }
+
+    private void setupAds() {
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder()
+                .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
+                .build();
+        publisherAdView.loadAd(adRequest);
+        publisherAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if (publisherAdView != null) {
+                    publisherAdView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override

@@ -132,6 +132,10 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
             } else {
                 match.setYoutube(true);
             }
+
+            if (message.contains("LIVE")) {
+                match.setLive(true);
+            }
         } else {
             match = (Match) getIntent().getExtras().getSerializable(MATCH_KEY);
         }

@@ -5,6 +5,10 @@
         <value></value>
     </entry>
     <entry>
+        <key>live_score_url</key>
+        <value>https://www.livescore.com/</value>
+    </entry>
+    <entry>
         <key>use_admob</key>
         <value>true</value>
     </entry>

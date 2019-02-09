@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.ACTIVE_ADS_KEY;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.ADS_TYPE;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.INTERSTITIAL_ADS_LIMIT;
+import static com.iseasoft.iseagoals.ISeaLiveConstants.LIVE_SCORE_URL;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.TODAY_HIGHLIGHT_STATUS;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.USE_ADMOB;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.USE_ONLINE_DATA_FLAG_KEY;
@@ -62,20 +63,12 @@ public class SplashActivity extends AppCompatActivity {
                 LiveApplication.setActiveAds(isActiveAds);
                 LiveApplication.setUseOnlineData(useOnlineData);
 
-                if (LiveApplication.isDebugBuild()) {
-                    navigationToAdminScreen();
-                } else {
-                    navigationToMainScreen();
-                }
+                navigationToMainScreen();
             }
 
             @Override
             public void onError(Error e) {
-                if (LiveApplication.isDebugBuild()) {
-                    navigationToAdminScreen();
-                } else {
-                    navigationToMainScreen();
-                }
+                navigationToMainScreen();
             }
         });
 
@@ -168,6 +161,9 @@ public class SplashActivity extends AppCompatActivity {
     private void applyRemoteConfig() {
         //LiveApplication.setUseOnlineData(mFirebaseRemoteConfig.getBoolean(USE_ONLINE_DATA_FLAG_KEY));
         LiveApplication.setTodayHighlightStatus(mFirebaseRemoteConfig.getString(TODAY_HIGHLIGHT_STATUS));
+        if (!TextUtils.isEmpty(mFirebaseRemoteConfig.getString(LIVE_SCORE_URL))) {
+            LiveApplication.setLiveScoreUrl(mFirebaseRemoteConfig.getString(LIVE_SCORE_URL));
+        }
         LiveApplication.setUseAdMob(mFirebaseRemoteConfig.getBoolean(USE_ADMOB));
         LiveApplication.setUseStartApp(mFirebaseRemoteConfig.getBoolean(USE_STARTAPP));
         LiveApplication.setUseRichAdx(mFirebaseRemoteConfig.getBoolean(USE_RICHADX));

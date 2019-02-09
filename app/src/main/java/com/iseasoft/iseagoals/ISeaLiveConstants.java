@@ -23,6 +23,7 @@ public class ISeaLiveConstants {
     public static final String USE_STARTAPP = "use_startapp";
     public static final String USE_RICHADX = "use_richadx";
     public static final String TODAY_HIGHLIGHT_STATUS = "today_highlight_status";
+    public static final String LIVE_SCORE_URL = "live_score_url";
     public static final String INTERSTITIAL_ADS_LIMIT = "interstitial_ads_limit";
     public static final String ADS_TYPE = "ads_type";
 

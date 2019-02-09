@@ -13,6 +13,7 @@ public class LiveApplication extends Application {
     private static boolean useStartApp = false;
     private static boolean useRichAdx = false;
     private static String todayHighlightStatus;
+    private static String liveScoreUrl = "https://www.livescore.com/";
     private static long interstitialAdsLimit = 5;
     private static long adsType = 0;
 
@@ -82,6 +83,14 @@ public class LiveApplication extends Application {
 
     public static void setTodayHighlightStatus(String todayHighlightStatus) {
         LiveApplication.todayHighlightStatus = todayHighlightStatus;
+    }
+
+    public static String getLiveScoreUrl() {
+        return liveScoreUrl;
+    }
+
+    public static void setLiveScoreUrl(String liveScoreUrl) {
+        LiveApplication.liveScoreUrl = liveScoreUrl;
     }
 
     public static LiveApplication self() {

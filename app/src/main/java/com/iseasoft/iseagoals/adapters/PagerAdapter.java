@@ -6,13 +6,13 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.iseasoft.iseagoals.ChannelListFragment;
 import com.iseasoft.iseagoals.HighlightFragment;
-import com.iseasoft.iseagoals.LiveFragment;
+import com.iseasoft.iseagoals.WebViewFrament;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final int TAB_LIVE = 0;
-    private static final int TAB_HIGHLIGHT = 1;
-    private static final int TAB_SPORT_TV = 2;
+    private static final int TAB_HIGHLIGHT = 0;
+    private static final int TAB_SPORT_TV = 1;
+    private static final int TAB_LIVE_SCORE = 2;
 
     public PagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -22,14 +22,14 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment frag = null;
         switch (position) {
-            case TAB_LIVE:
-                frag = LiveFragment.newInstance();
-                break;
             case TAB_HIGHLIGHT:
                 frag = HighlightFragment.newInstance();
                 break;
             case TAB_SPORT_TV:
                 frag = ChannelListFragment.newInstance();
+                break;
+            case TAB_LIVE_SCORE:
+                frag = WebViewFrament.newInstance();
                 break;
         }
         return frag;
@@ -44,8 +44,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         String title = "";
         switch (position) {
-            case TAB_LIVE:
-                title = "LIVE";
+            case TAB_LIVE_SCORE:
+                title = "LIVE SCORE";
                 break;
             case TAB_HIGHLIGHT:
                 title = "HIGHLIGHTS";

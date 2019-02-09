@@ -39,6 +39,14 @@ public class WebViewFrament extends Fragment {
     @BindView(R.id.progress)
     ProgressBar progress;
 
+    public static WebViewFrament newInstance() {
+        WebViewFrament frament = new WebViewFrament();
+        Bundle args = new Bundle();
+        args.putString(WEB_URL, LiveApplication.getLiveScoreUrl());
+        frament.setArguments(args);
+        return frament;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 import com.iseasoft.iseagoals.listeners.FragmentEventListener;
@@ -20,17 +18,13 @@ import com.iseasoft.iseagoals.listeners.OnConfirmationDialogListener;
 import com.iseasoft.iseagoals.models.Match;
 import com.iseasoft.iseagoals.references.SharedPrefs;
 import com.iseasoft.iseagoals.widgets.ConfirmationDialog;
-import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static com.iseasoft.iseagoals.ISeaLiveConstants.ADMOB_TYPE;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.CAROUSEL_ID;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.MATCH_KEY;
-import static com.iseasoft.iseagoals.ISeaLiveConstants.RICHADX_TYPE;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.SPORT_TV_ID;
-import static com.iseasoft.iseagoals.ISeaLiveConstants.STARTAPP_TYPE;
 
 public class PlayerActivity extends BaseActivity implements FragmentEventListener {
 
@@ -39,8 +33,6 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
     Match match;
 
     private PublisherInterstitialAd publisherInterstitialAd;
-    private InterstitialAd mInterstitialAd;
-    private StartAppAd startAppAd;
 
     private boolean isImmersiveAvailable() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -69,57 +61,13 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
                     publisherInterstitialAd.show();
                 }
             }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                if (startAppAd != null && startAppAd.isReady()) {
-                    startAppAd.showAd();
-                }
-            }
         });
-    }
-
-
-    private void setupInterstitialAds() {
-        if (mInterstitialAd == null) {
-            mInterstitialAd = new InterstitialAd(this);
-            mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_ad_unit_id));
-        }
-        mInterstitialAd.loadAd(new AdRequest.Builder()
-                .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
-                .build());
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                if (mInterstitialAd != null) {
-                    mInterstitialAd.show();
-                }
-            }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                if (startAppAd != null && startAppAd.isReady()) {
-                    startAppAd.showAd();
-                }
-            }
-        });
-    }
-
-    private void setupStartAppAd() {
-        if (startAppAd == null) {
-            startAppAd = new StartAppAd(this);
-        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_player);
         super.onCreate(savedInstanceState);
-        setupStartAppAd();
-
         if (getIntent() != null && !TextUtils.isEmpty(getIntent().getStringExtra(ISeaLiveConstants.PUSH_URL_KEY))) {
             String matchUrl = getIntent().getStringExtra(ISeaLiveConstants.PUSH_URL_KEY);
             String message = getIntent().getStringExtra(ISeaLiveConstants.PUSH_MESSAGE);
@@ -155,27 +103,7 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
     public void setupFullScreenAds() {
         if (LiveApplication.screenCount >= LiveApplication.getInterstitialAdsLimit()) {
             LiveApplication.screenCount = 0;
-            int adsType = (int) LiveApplication.getAdsType();
-            switch (adsType) {
-                case ADMOB_TYPE:
-                    setupInterstitialAds();
-                    break;
-                case RICHADX_TYPE:
-                    setupPublisherInterstitialAds();
-                    break;
-                case STARTAPP_TYPE:
-                    showStartApp();
-                    break;
-                default:
-                    setupInterstitialAds();
-                    break;
-            }
-        }
-    }
-
-    private void showStartApp() {
-        if (startAppAd != null && startAppAd.isReady()) {
-            startAppAd.showAd();
+            setupPublisherInterstitialAds();
         }
     }
 
@@ -295,26 +223,8 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (startAppAd != null) {
-            startAppAd.onResume();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (startAppAd != null) {
-            startAppAd.onPause();
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        mInterstitialAd = null;
         publisherInterstitialAd = null;
-        startAppAd = null;
     }
 }

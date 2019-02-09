@@ -22,9 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
 import com.google.android.gms.common.ConnectionResult;
@@ -33,8 +30,6 @@ import com.iseasoft.iseagoals.listeners.OnConfirmationDialogListener;
 import com.iseasoft.iseagoals.models.League;
 import com.iseasoft.iseagoals.models.Match;
 import com.iseasoft.iseagoals.widgets.ConfirmationDialog;
-import com.startapp.android.publish.adsCommon.StartAppAd;
-import com.startapp.android.publish.adsCommon.StartAppSDK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,11 +44,9 @@ import butterknife.OnClick;
 import butterknife.Optional;
 import butterknife.Unbinder;
 
-import static com.iseasoft.iseagoals.ISeaLiveConstants.ADMOB_TYPE;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.GOOGLE_PLAY_APP_LINK;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.LEAGUE_KEY;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.MATCH_KEY;
-import static com.iseasoft.iseagoals.ISeaLiveConstants.RICHADX_TYPE;
 
 public abstract class BaseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -67,32 +60,14 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
     TextView todayHighlight;
     @BindView(R.id.publisherAdView)
     PublisherAdView publisherAdView;
-    @BindView(R.id.adView)
-    AdView mAdView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         unbinder = ButterKnife.bind(this);
         showFootContent(true);
-        setupAds();
+        setupPublisherAds();
         LiveApplication.screenCount++;
-    }
-
-    private void setupAds() {
-        int adsType = (int) LiveApplication.getAdsType();
-        switch (adsType) {
-            case ADMOB_TYPE:
-                setupAdMob();
-                break;
-            case RICHADX_TYPE:
-                setupPublisherAds();
-                break;
-            default:
-                setupAdMob();
-                break;
-        }
-        initStartAppSdk();
     }
 
     private void setupGoogleApi() {
@@ -101,15 +76,6 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();*/
-    }
-
-    private void initStartAppSdk() {
-        StartAppSDK.init(this, getString(R.string.start_app_id), false);
-        StartAppSDK.setUserConsent(this,
-                "pas",
-                System.currentTimeMillis(),
-                true);
-        StartAppAd.disableSplash();
     }
 
     private void setupPublisherAds() {
@@ -133,42 +99,9 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
         });
     }
 
-    private void setupAdMob() {
-        MobileAds.initialize(this,
-                getString(R.string.admob_app_id));
-        setupBannerAds();
-    }
-
-    private void setupBannerAds() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
-                .build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                if (mAdView != null) {
-                    mAdView.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-    }
-
-    /*
-    public void showBannerAds(boolean isShow) {
-        if (mAdView != null) {
-            mAdView.setVisibility(isShow ? View.VISIBLE : View.GONE);
-        }
-    }
-    */
-
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAdView != null) {
-            mAdView.resume();
-        }
 
         if (publisherAdView != null) {
             publisherAdView.resume();
@@ -178,9 +111,6 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
     @Override
     protected void onPause() {
         super.onPause();
-        if (mAdView != null) {
-            mAdView.pause();
-        }
 
         if (publisherAdView != null) {
             publisherAdView.pause();
@@ -214,8 +144,8 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mAdView != null) {
-            mAdView.destroy();
+        if (publisherAdView != null) {
+            publisherAdView.destroy();
         }
         unbinder.unbind();
         unbinder = null;

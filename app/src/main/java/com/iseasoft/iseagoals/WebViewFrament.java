@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 @SuppressLint("ValidFragment")
-public class WebViewFrament extends Fragment {
+public class WebViewFrament extends BaseFragment {
 
     public static final String TAG = WebViewFrament.class.getSimpleName();
 
@@ -86,6 +85,9 @@ public class WebViewFrament extends Fragment {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 removingHeader(view);
+                if (!isStateSafe()) {
+                    return;
+                }
                 progress.setVisibility(View.GONE);
                 webView.setVisibility(View.VISIBLE);
                 if (url.contains("match")) {

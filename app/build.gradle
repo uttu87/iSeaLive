@@ -61,6 +61,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.5'
     implementation 'com.google.firebase:firebase-firestore:17.1.5'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:17.0.5'
     implementation 'com.google.firebase:firebase-config:16.1.2'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
     implementation 'com.google.android.gms:play-services-appinvite:16.0.7'

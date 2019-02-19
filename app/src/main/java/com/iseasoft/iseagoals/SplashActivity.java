@@ -8,6 +8,8 @@ import android.text.TextUtils;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -37,6 +39,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPrefs.getInstance().increaseAppOpenCount();
+        setupFireStoreSettings();
         setupFirebaseRemoteConfig();
         ISeaLiveAPI.getInstance().getConfig(new APIListener<Task<QuerySnapshot>>() {
             @Override
@@ -73,6 +76,14 @@ public class SplashActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void setupFireStoreSettings() {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build();
+        firestore.setFirestoreSettings(settings);
     }
 
     private void navigationToMainScreen() {

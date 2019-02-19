@@ -22,7 +22,6 @@ import com.iseasoft.iseagoals.widgets.ConfirmationDialog;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static com.iseasoft.iseagoals.ISeaLiveConstants.CAROUSEL_ID;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.MATCH_KEY;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.SPORT_TV_ID;
 
@@ -74,7 +73,7 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
             match = new Match();
             match.setStreamUrl(matchUrl);
             match.setName(message);
-            match.setLeague(String.valueOf(CAROUSEL_ID));
+            match.setLeague(String.valueOf(SPORT_TV_ID));
             if (matchUrl.contains("http")) {
                 match.setYoutube(false);
             } else {

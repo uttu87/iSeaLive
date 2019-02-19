@@ -22,17 +22,13 @@ import me.relex.circleindicator.CircleIndicator;
 public class CarouselFragment extends BaseFragment {
 
     public static final String TAG = CarouselFragment.class.getSimpleName();
-    private static final int TIME_INTERVAL = 5; //5 seconds
 
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     @BindView(R.id.indicator)
     CircleIndicator indicator;
     Unbinder unbinder;
-    Handler mHandler;
-    Runnable mRunnable;
 
-    int page = 0;
     private League league;
     private CarouselPagerAdapter carouselPagerAdapter;
 
@@ -55,7 +51,6 @@ public class CarouselFragment extends BaseFragment {
     private void setupPageIndicator(View view) {
         indicator.setViewPager(viewPager);
         carouselPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
-        pageSwitcher(TIME_INTERVAL);
     }
 
 
@@ -104,42 +99,8 @@ public class CarouselFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mHandler != null) {
-            mHandler.removeCallbacks(mRunnable);
-        }
-        mHandler = null;
-        mRunnable = null;
         league = null;
         carouselPagerAdapter = null;
         unbinder.unbind();
-    }
-
-    public void pageSwitcher(int seconds) {
-        mHandler = new Handler();
-        mRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                changePage();
-                mHandler.postDelayed(mRunnable, 1000 * seconds);
-            }
-        };
-        mHandler.postDelayed(mRunnable, 1000 * seconds);
-    }
-
-    private void changePage() {
-        if (carouselPagerAdapter == null) {
-            return;
-        }
-
-        if (viewPager == null) {
-            return;
-        }
-
-        page = viewPager.getCurrentItem() + 1;
-        if (page == carouselPagerAdapter.getCount()) {
-            page = 0;
-        }
-        viewPager.setCurrentItem(page, true);
     }
 }

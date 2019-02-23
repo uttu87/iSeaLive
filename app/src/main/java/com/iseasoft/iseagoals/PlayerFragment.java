@@ -193,6 +193,8 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
         if (mVideoController != null) {
             mVideoController.updatePlayPauseImage(true);
         }
+
+        screenModeChange(isFullscreen, false);
     }
 
     @Override

@@ -9,12 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.iseasoft.iseagoals.listeners.FragmentEventListener;
 import com.iseasoft.iseagoals.models.Match;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -25,8 +29,8 @@ public class YoutubePlayerFragment extends Fragment implements YouTubePlayer.OnI
         YouTubePlayer.OnFullscreenListener {
     private static final String TAG = YoutubePlayerFragment.class.getSimpleName();
     Unbinder unbinder;
-    //@BindView(R.id.adView)
-    //AdView mAdView;
+    @BindView(R.id.publisherAdView)
+    PublisherAdView publisherAdView;
 
     private YouTubePlayer youTubePlayer;
     private Match match;
@@ -74,42 +78,28 @@ public class YoutubePlayerFragment extends Fragment implements YouTubePlayer.OnI
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initializeYoutubePlayer();
-        //setupInternalBannerAds();
+        setupInternalBannerAds();
         ((BaseActivity) getActivity()).showFootContent(false);
     }
 
-    /*
 
     private void setupInternalBannerAds() {
         ((BaseActivity) getActivity()).showFootContent(false);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder()
+                .addTestDevice("FB536EF8C6F97686372A2C5A5AA24BC5")
+                .build();
 
-        if (LiveApplication.isDebugBuild()) {
-            mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_test));
-        } else {
-            mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
-        }
-
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                if (mAdView != null) {
-                    mAdView.setVisibility(View.GONE);
-                }
-            }
-
+        publisherAdView.loadAd(adRequest);
+        publisherAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                if (mAdView != null) {
-                    mAdView.setVisibility(View.VISIBLE);
+                if (publisherAdView != null) {
+                    publisherAdView.setVisibility(View.VISIBLE);
                 }
             }
         });
     }
-    */
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {

@@ -11,20 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <!--
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
+    <com.google.android.gms.ads.doubleclick.PublisherAdView
+        android:id="@+id/publisherAdView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:visibility="gone"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
-  -->
-    <com.startapp.android.publish.ads.banner.Banner
-        android:id="@+id/startAppBanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />
-
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/richadx_banner_ad_unit_id" />
 
 </LinearLayout>

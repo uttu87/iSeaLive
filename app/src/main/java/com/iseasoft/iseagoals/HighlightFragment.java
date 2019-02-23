@@ -127,7 +127,9 @@ public class HighlightFragment extends BaseFragment {
                 if (!isStateSafe()) {
                     return;
                 }
-                swipeRefreshLayout.setRefreshing(false);
+                if (swipeRefreshLayout != null) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
                 applyLeague(leagues);
 
                 refresh();
@@ -169,13 +171,17 @@ public class HighlightFragment extends BaseFragment {
     }
 
     private void showShimmer() {
-        mShimmerViewContainer.setVisibility(View.VISIBLE);
-        mShimmerViewContainer.startShimmer();
+        if (mShimmerViewContainer != null) {
+            mShimmerViewContainer.setVisibility(View.VISIBLE);
+            mShimmerViewContainer.startShimmer();
+        }
     }
 
     private void hideShimmer() {
-        mShimmerViewContainer.startShimmer();
-        mShimmerViewContainer.setVisibility(View.GONE);
+        if (mShimmerViewContainer != null) {
+            mShimmerViewContainer.startShimmer();
+            mShimmerViewContainer.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -215,7 +221,9 @@ public class HighlightFragment extends BaseFragment {
         }
 
         if (mLeagues.size() > 0) {
-            swipeRefreshLayout.setRefreshing(false);
+            if (swipeRefreshLayout != null) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
             hideShimmer();
             return;
         }

@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.iseasoft.iseagoals.ISeaLiveConstants.ACTIVE_ADS_KEY;
+import static com.iseasoft.iseagoals.ISeaLiveConstants.ACTIVE_FULLMATCH;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.ADS_TYPE;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.INTERSTITIAL_ADS_LIMIT;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.LIVE_SCORE_URL;
@@ -170,7 +171,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void applyRemoteConfig() {
-        //LiveApplication.setUseOnlineData(mFirebaseRemoteConfig.getBoolean(USE_ONLINE_DATA_FLAG_KEY));
+        LiveApplication.setActiveFullMatch(mFirebaseRemoteConfig.getBoolean(ACTIVE_FULLMATCH));
         LiveApplication.setTodayHighlightStatus(mFirebaseRemoteConfig.getString(TODAY_HIGHLIGHT_STATUS));
         if (!TextUtils.isEmpty(mFirebaseRemoteConfig.getString(LIVE_SCORE_URL))) {
             LiveApplication.setLiveScoreUrl(mFirebaseRemoteConfig.getString(LIVE_SCORE_URL));

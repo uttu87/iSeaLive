@@ -17,6 +17,7 @@ public class ISeaLiveConstants {
     public static final String YOUTUBE_API_KEY = "AIzaSyBtcgN2CSg3ElJQSMQMSTZhgoDQZKClmkA";
     public static final String GOOGLE_PLAY_APP_LINK = "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
 
+    public static final String ACTIVE_FULLMATCH = "active_fullmatch";
     public static final String CONFIG_COLLECTION = "config";
     public static final String USE_ONLINE_DATA_FLAG_KEY = "use_online_data_flag";
     public static final String ACTIVE_ADS_KEY = "active_ads";

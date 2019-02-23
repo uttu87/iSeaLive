@@ -7,15 +7,16 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.iseasoft.iseagoals.ChannelListFragment;
 import com.iseasoft.iseagoals.FullMatchFragment;
 import com.iseasoft.iseagoals.HighlightFragment;
+import com.iseasoft.iseagoals.LiveApplication;
 import com.iseasoft.iseagoals.WebViewFrament;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int TAB_HIGHLIGHT = 0;
     private static final int TAB_SPORT_TV = TAB_HIGHLIGHT + 1;
-    private static final int TAB_FULL_MATCH = TAB_SPORT_TV + 1;
-    private static final int TAB_LIVE_SCORE = TAB_FULL_MATCH + 1;
-    private static final int TAB_COUNT = TAB_LIVE_SCORE + 1;
+    private static final int TAB_LIVE_SCORE = TAB_SPORT_TV + 1;
+    private static final int TAB_FULL_MATCH = TAB_LIVE_SCORE + 1;
+    private static final int TAB_COUNT = TAB_FULL_MATCH + 1;
 
     public PagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -31,11 +32,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case TAB_SPORT_TV:
                 frag = ChannelListFragment.newInstance();
                 break;
-            case TAB_FULL_MATCH:
-                frag = FullMatchFragment.newInstance();
-                break;
             case TAB_LIVE_SCORE:
                 frag = WebViewFrament.newInstance();
+                break;
+            case TAB_FULL_MATCH:
+                frag = FullMatchFragment.newInstance();
                 break;
         }
         return frag;
@@ -43,7 +44,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return TAB_COUNT;
+        return LiveApplication.isActiveFullMatch() ? TAB_COUNT : TAB_COUNT - 1;
     }
 
     @Override
@@ -56,11 +57,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case TAB_HIGHLIGHT:
                 title = "HIGHLIGHTS";
                 break;
-            case TAB_FULL_MATCH:
-                title = "FULL MATCH";
-                break;
             case TAB_SPORT_TV:
                 title = "SPORT TV";
+                break;
+            case TAB_FULL_MATCH:
+                title = "FULL MATCH";
                 break;
         }
         return title;

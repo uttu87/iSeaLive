@@ -7,6 +7,7 @@ public class LiveApplication extends Application {
 
     public static int screenCount = 0;
     private static LiveApplication mSelf;
+    private static boolean activeFullMatch = false;
     private static boolean useOnlineData = true;
     private static boolean activeAds = true;
     private static boolean useAdMob = true;
@@ -16,6 +17,17 @@ public class LiveApplication extends Application {
     private static String liveScoreUrl = "https://www.livescore.com/";
     private static long interstitialAdsLimit = 5;
     private static long adsType = 0;
+
+    public static boolean isActiveFullMatch() {
+        if (isDebugBuild()) {
+            return true;
+        }
+        return activeFullMatch;
+    }
+
+    public static void setActiveFullMatch(boolean activeFullMatch) {
+        LiveApplication.activeFullMatch = activeFullMatch;
+    }
 
     public static boolean isUseOnlineData() {
         return useOnlineData;

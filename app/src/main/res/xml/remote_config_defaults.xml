@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?><!-- START xml_defaults -->
 <defaultsMap>
     <entry>
+        <key>active_fullmatch</key>
+        <value>false</value>
+    </entry>
+    <entry>
         <key>today_highlight_status</key>
         <value></value>
     </entry>

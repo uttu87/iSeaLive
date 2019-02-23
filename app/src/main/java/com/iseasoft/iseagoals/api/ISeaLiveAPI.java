@@ -31,6 +31,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.iseasoft.iseagoals.ISeaLiveConstants.CONFIG_COLLECTION;
+import static com.iseasoft.iseagoals.ISeaLiveConstants.FULL_MATCH_COLLECTION;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.LEAGUE_COLLECTION;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.MATCH_KEY;
 
@@ -106,9 +107,51 @@ public class ISeaLiveAPI {
                 });
     }
 
-    public void getMatchList(String league, APIListener<ArrayList<Match>> listener) {
+    public void getFullMatchLeague(APIListener<ArrayList<League>> listener) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection(LEAGUE_COLLECTION).document(league)
+        firebaseFirestore.collection(FULL_MATCH_COLLECTION)
+                .get()
+                .addOnCompleteListener(task -> {
+                    boolean addDataSuccess = false;
+                    if (task.isSuccessful()) {
+                        ArrayList<League> leagues = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            //Log.d(TAG, document.getId() + " => " + document.getData());
+                            try {
+                                JSONObject jsonObject = new JSONObject(document.getData());
+                                //Log.d(TAG, jsonObject.toString());
+                                League league = LeagueParser.createLeagueFromJSONObject(jsonObject);
+                                if (league.getMatches().size() > 0) {
+                                    leagues.add(league);
+                                }
+                                addDataSuccess = true;
+                            } catch (JSONException e) {
+                                addDataSuccess = false;
+                                e.printStackTrace();
+                            }
+                        }
+
+                        if (addDataSuccess) {
+                            listener.onRequestCompleted(leagues, "");
+                        } else {
+                            listener.onError(new Error("Get league list failed"));
+                        }
+
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                        listener.onError(new Error(task.getException()));
+                    }
+                });
+    }
+
+    public void getMatchList(String league, APIListener<ArrayList<Match>> listener) {
+        getMatchList(league, false, listener);
+    }
+
+    public void getMatchList(String league, boolean isFullMatch, APIListener<ArrayList<Match>> listener) {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        String leagueCollection = isFullMatch ? FULL_MATCH_COLLECTION : LEAGUE_COLLECTION;
+        firebaseFirestore.collection(leagueCollection).document(league)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override

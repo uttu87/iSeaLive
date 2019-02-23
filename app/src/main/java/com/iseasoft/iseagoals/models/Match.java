@@ -15,6 +15,7 @@ public class Match extends ViewModel implements Serializable {
     private boolean isLive;
     private boolean isYoutube;
     private boolean isHidden;
+    private boolean isFullMatch;
 
     public int getId() {
         return id;
@@ -94,5 +95,13 @@ public class Match extends ViewModel implements Serializable {
 
     public void setHidden(boolean hidden) {
         isHidden = hidden;
+    }
+
+    public boolean isFullMatch() {
+        return isFullMatch;
+    }
+
+    public void setFullMatch(boolean fullMatch) {
+        isFullMatch = fullMatch;
     }
 }

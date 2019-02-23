@@ -22,6 +22,7 @@ public class MatchParser {
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";
     public static final String ID = "id";
+    public static final String IS_FULL_MATCH = "isFullMatch";
 
     public static ArrayList<Match> createMatchFromJSONArray(JSONArray jsonArray) throws JSONException {
         ArrayList<Match> matches = new ArrayList<>();
@@ -74,6 +75,11 @@ public class MatchParser {
             match.setHidden(jsonObject.getBoolean(IS_HIDDEN));
         } else {
             match.setHidden(false);
+        }
+        if (jsonObject.has(IS_FULL_MATCH)) {
+            match.setFullMatch(jsonObject.getBoolean(IS_FULL_MATCH));
+        } else {
+            match.setFullMatch(false);
         }
         return match;
     }

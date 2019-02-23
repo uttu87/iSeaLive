@@ -7,6 +7,7 @@ public class ISeaLiveConstants {
     public static final int STARTAPP_TYPE = 2;
 
     public static final String LEAGUE_COLLECTION = "league";
+    public static final String FULL_MATCH_COLLECTION = "full_match";
     public static final int CAROUSEL_ID = 1000;
     public static final int SPORT_TV_ID = 1017;
     public static final String MATCH_KEY = "match";

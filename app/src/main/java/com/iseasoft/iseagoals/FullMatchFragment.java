@@ -96,7 +96,7 @@ public class FullMatchFragment extends BaseFragment {
 
     private void fetchOnlineData() {
         homeScreenRequestStartedAt = System.currentTimeMillis();
-        ISeaLiveAPI.getInstance().getAllLeague(new APIListener<ArrayList<League>>() {
+        ISeaLiveAPI.getInstance().getFullMatchLeague(new APIListener<ArrayList<League>>() {
             @Override
             public void onRequestCompleted(ArrayList<League> leagues, String json) {
                 if (!isStateSafe()) {

@@ -80,7 +80,7 @@ public class MatchListFragment extends BaseFragment implements OnMatchListener, 
     private void loadData() {
         match = (Match) getArguments().getSerializable(MATCH_KEY);
         if (match != null) {
-            ISeaLiveAPI.getInstance().getMatchList(match.getLeague(), new APIListener<ArrayList<Match>>() {
+            ISeaLiveAPI.getInstance().getMatchList(match.getLeague(), match.isFullMatch(), new APIListener<ArrayList<Match>>() {
                 @Override
                 public void onRequestCompleted(ArrayList<Match> obj, String leagueName) {
                     if(!isStateSafe()) {

@@ -199,7 +199,7 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
     public void changeScreenMode(boolean isFullScreen, boolean isUserSelect) {
         if (isFullScreen) {
             if (isUserSelect) {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
             }
             setFullscreen(this);
         } else {

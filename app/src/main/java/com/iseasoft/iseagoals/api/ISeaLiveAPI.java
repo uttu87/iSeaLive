@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.CONFIG_COLLECTION;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.FULL_MATCH_COLLECTION;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.LEAGUE_COLLECTION;
+import static com.iseasoft.iseagoals.ISeaLiveConstants.LIVE_LEAGUE_COLLECTION;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.MATCH_KEY;
 
 public class ISeaLiveAPI {
@@ -73,6 +74,43 @@ public class ISeaLiveAPI {
     public void getAllLeague(APIListener<ArrayList<League>> listener) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection(LEAGUE_COLLECTION)
+                .get()
+                .addOnCompleteListener(task -> {
+                    boolean addDataSuccess = false;
+                    if (task.isSuccessful()) {
+                        ArrayList<League> leagues = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            //Log.d(TAG, document.getId() + " => " + document.getData());
+                            try {
+                                JSONObject jsonObject = new JSONObject(document.getData());
+                                //Log.d(TAG, jsonObject.toString());
+                                League league = LeagueParser.createLeagueFromJSONObject(jsonObject);
+                                if (league.getMatches().size() > 0) {
+                                    leagues.add(league);
+                                }
+                                addDataSuccess = true;
+                            } catch (JSONException e) {
+                                addDataSuccess = false;
+                                e.printStackTrace();
+                            }
+                        }
+
+                        if (addDataSuccess) {
+                            listener.onRequestCompleted(leagues, "");
+                        } else {
+                            listener.onError(new Error("Get league list failed"));
+                        }
+
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                        listener.onError(new Error(task.getException()));
+                    }
+                });
+    }
+
+    public void getLiveLeague(APIListener<ArrayList<League>> listener) {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection(LIVE_LEAGUE_COLLECTION)
                 .get()
                 .addOnCompleteListener(task -> {
                     boolean addDataSuccess = false;

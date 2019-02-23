@@ -3,15 +3,18 @@ package com.iseasoft.iseagoals.models;
 import android.arch.lifecycle.ViewModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Match extends ViewModel implements Serializable {
     private int id;
     private String name;
     private String description;
     private String streamUrl;
+    private ArrayList<String> streamUrls;
     private String thumbnailUrl;
     private String type;
     private String league;
+    private long time;
     private boolean isLive;
     private boolean isYoutube;
     private boolean isHidden;
@@ -49,6 +52,14 @@ public class Match extends ViewModel implements Serializable {
         this.streamUrl = streamUrl;
     }
 
+    public ArrayList<String> getStreamUrls() {
+        return streamUrls;
+    }
+
+    public void setStreamUrls(ArrayList<String> streamUrls) {
+        this.streamUrls = streamUrls;
+    }
+
     public String getThumbnailUrl() {
         return thumbnailUrl;
     }
@@ -71,6 +82,14 @@ public class Match extends ViewModel implements Serializable {
 
     public void setLeague(String league) {
         this.league = league;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public boolean isLive() {

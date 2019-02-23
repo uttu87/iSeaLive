@@ -8,11 +8,13 @@ import com.iseasoft.iseagoals.ChannelListFragment;
 import com.iseasoft.iseagoals.FullMatchFragment;
 import com.iseasoft.iseagoals.HighlightFragment;
 import com.iseasoft.iseagoals.LiveApplication;
+import com.iseasoft.iseagoals.LiveFragment;
 import com.iseasoft.iseagoals.WebViewFrament;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final int TAB_HIGHLIGHT = 0;
+    private static final int TAB_LIVE = 0;
+    private static final int TAB_HIGHLIGHT = TAB_LIVE + 1;
     private static final int TAB_SPORT_TV = TAB_HIGHLIGHT + 1;
     private static final int TAB_LIVE_SCORE = TAB_SPORT_TV + 1;
     private static final int TAB_FULL_MATCH = TAB_LIVE_SCORE + 1;
@@ -26,6 +28,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment frag = null;
         switch (position) {
+            case TAB_LIVE:
+                frag = LiveFragment.newInstance();
+                break;
             case TAB_HIGHLIGHT:
                 frag = HighlightFragment.newInstance();
                 break;
@@ -51,6 +56,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         String title = "";
         switch (position) {
+            case TAB_LIVE:
+                title = "LIVE";
+                break;
             case TAB_LIVE_SCORE:
                 title = "LIVE SCORE";
                 break;

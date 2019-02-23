@@ -1,5 +1,7 @@
 package com.iseasoft.iseagoals.parsers;
 
+import android.text.TextUtils;
+
 import com.iseasoft.iseagoals.LiveApplication;
 import com.iseasoft.iseagoals.models.Match;
 
@@ -19,10 +21,13 @@ public class MatchParser {
     public static final String TYPE = "type";
     public static final String IMAGE_URL = "imageURL";
     public static final String STREAM_URL = "streamURL";
+    public static final String STREAM_URLS = "streamURLs";
+    public static final String TIME = "time";
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";
     public static final String ID = "id";
     public static final String IS_FULL_MATCH = "isFullMatch";
+    public static final String SECONDS = "seconds";
 
     public static ArrayList<Match> createMatchFromJSONArray(JSONArray jsonArray) throws JSONException {
         ArrayList<Match> matches = new ArrayList<>();
@@ -32,13 +37,37 @@ public class MatchParser {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             Match match = createMatchFromJSONObject(jsonObject);
-            if (!match.isHidden() || LiveApplication.isDebugBuild()) {
+            if (!match.isHidden() || match.isLive() || LiveApplication.isDebugBuild()) {
                 matches.add(match);
             }
         }
         Collections.reverse(matches);
         return matches;
     }
+
+    private static ArrayList<String> createStreamURLsFromJSONArray(JSONArray jsonArray) throws JSONException {
+        ArrayList<String> streamUrls = new ArrayList<>();
+        if (jsonArray == null || jsonArray.length() == 0) {
+            return streamUrls;
+        }
+        for (int i = 0; i < jsonArray.length(); i++) {
+            String streamUrl = jsonArray.getString(i);
+            if (!TextUtils.isEmpty(streamUrl)) {
+                streamUrls.add(streamUrl);
+            }
+
+        }
+        return streamUrls;
+    }
+
+    private static long parseTimeFromJSONObject(JSONObject jsonObject) throws JSONException {
+        long time = 0;
+        if (jsonObject.has(SECONDS)) {
+            time = jsonObject.getLong(SECONDS);
+        }
+        return time;
+    }
+
 
     public static Match createMatchFromJSONObject(JSONObject jsonObject) throws JSONException {
         Match match = new Match();
@@ -65,6 +94,9 @@ public class MatchParser {
         if (jsonObject.has(LEAGUE)) {
             match.setLeague(jsonObject.getString(LEAGUE));
         }
+        if (jsonObject.has(TIME)) {
+            match.setTime(parseTimeFromJSONObject(jsonObject.getJSONObject(TIME)));
+        }
         if (jsonObject.has(IS_LIVE)) {
             match.setLive(jsonObject.getBoolean(IS_LIVE));
         }
@@ -81,6 +113,10 @@ public class MatchParser {
         } else {
             match.setFullMatch(false);
         }
+        if (jsonObject.has(STREAM_URLS)) {
+            match.setStreamUrls(createStreamURLsFromJSONArray(jsonObject.getJSONArray(STREAM_URLS)));
+        }
+
         return match;
     }
 }

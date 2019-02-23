@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,7 +42,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.iseasoft.iseagoals.ISeaLiveConstants.ACTIVE_ADS_KEY;
-import static com.iseasoft.iseagoals.ISeaLiveConstants.CAROUSEL_ID;
 import static com.iseasoft.iseagoals.ISeaLiveConstants.USE_ONLINE_DATA_FLAG_KEY;
 
 @SuppressWarnings("WeakerAccess")
@@ -61,7 +58,6 @@ public class LiveFragment extends BaseFragment {
     long homeScreenRequestStartedAt;
     private boolean init = false;
     private ArrayList<League> mLeagues;
-    private League mCarouselLeague;
     private CanvasAdapter mCanvasAdapter;
 
     public static LiveFragment newInstance() {
@@ -71,32 +67,10 @@ public class LiveFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_live, container, false);
         unbinder = ButterKnife.bind(this, view);
         mLeagues = new ArrayList<>();
         return view;
-    }
-
-    private void setupCarousel() {
-        FragmentManager fm = getChildFragmentManager();
-        CarouselFragment carouselFragment = getCarouselFragment();
-        if (carouselFragment == null) {
-            carouselFragment = new CarouselFragment();
-        }
-        carouselFragment.setData(mCarouselLeague);
-
-        if (carouselFragment.isAdded()) {
-            return;
-        }
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.fragment_carousel, carouselFragment, CarouselFragment.TAG);
-        ft.commitAllowingStateLoss();
-        fm.executePendingTransactions();
-    }
-
-    private CarouselFragment getCarouselFragment() {
-        FragmentManager fm = getChildFragmentManager();
-        return (CarouselFragment) fm.findFragmentByTag(CarouselFragment.TAG);
     }
 
     @Override
@@ -121,7 +95,7 @@ public class LiveFragment extends BaseFragment {
 
     private void fetchOnlineData() {
         homeScreenRequestStartedAt = System.currentTimeMillis();
-        ISeaLiveAPI.getInstance().getAllLeague(new APIListener<ArrayList<League>>() {
+        ISeaLiveAPI.getInstance().getLiveLeague(new APIListener<ArrayList<League>>() {
             @Override
             public void onRequestCompleted(ArrayList<League> leagues, String json) {
                 if (!isStateSafe()) {
@@ -133,11 +107,7 @@ public class LiveFragment extends BaseFragment {
                 for (League league : leagues) {
                     League liveLeague = getLiveLeague(league);
                     if (liveLeague.getMatches().size() > 0) {
-                        if (league.getId() == CAROUSEL_ID) {
-                            mCarouselLeague = liveLeague;
-                        } else {
-                            mLeagues.add(liveLeague);
-                        }
+                        mLeagues.add(liveLeague);
                     }
                 }
 
@@ -201,7 +171,6 @@ public class LiveFragment extends BaseFragment {
         Log.d(TAG, "onDestroyView");
         mCanvasAdapter = null;
         mLeagues = null;
-        mCarouselLeague = null;
         unbinder.unbind();
     }
 
@@ -240,11 +209,7 @@ public class LiveFragment extends BaseFragment {
             for (League league : leagues) {
                 League liveLeague = getLiveLeague(league);
                 if (liveLeague.getMatches().size() > 0) {
-                    if (league.getId() == CAROUSEL_ID) {
-                        mCarouselLeague = liveLeague;
-                    } else {
-                        mLeagues.add(liveLeague);
-                    }
+                    mLeagues.add(liveLeague);
                 }
             }
 
@@ -267,7 +232,6 @@ public class LiveFragment extends BaseFragment {
     }
 
     public void refresh() {
-        setupCarousel();
         setupLeagueAdapter();
     }
 

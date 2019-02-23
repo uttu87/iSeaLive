@@ -138,7 +138,7 @@
     </style>
 
     <style name="Description">
-        <item name="android:gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
         <item name="android:letterSpacing">-0.04</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/cloudy_grey</item>

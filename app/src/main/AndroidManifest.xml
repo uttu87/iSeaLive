@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.iseasoft.iseagoals">
+    package="com.iseasoft.iseagoal">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
-        android:name="com.iseasoft.iseagoals.LiveApplication"
+        android:name="com.iseasoft.iseagoal.LiveApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.iseasoft.iseagoals.SplashActivity"
+            android:name="com.iseasoft.iseagoal.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -29,25 +29,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.iseasoft.iseagoals.MainActivity"
+            android:name="com.iseasoft.iseagoal.MainActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.iseasoft.iseagoals.PlayerActivity"
+            android:name="com.iseasoft.iseagoal.PlayerActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name="com.iseasoft.iseagoals.AdminActivity"
+            android:name="com.iseasoft.iseagoal.AdminActivity"
             android:screenOrientation="portrait" />
 
         <service
-            android:name="com.iseasoft.iseagoals.services.ISeaLiveFirebaseMessagingService"
+            android:name="com.iseasoft.iseagoal.services.ISeaLiveFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name="com.iseasoft.iseagoals.services.ISeaLiveFirebaseInstanceIdService"
+            android:name="com.iseasoft.iseagoal.services.ISeaLiveFirebaseInstanceIdService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -55,7 +55,7 @@
         </service>
 
         <activity
-            android:name="com.iseasoft.iseagoals.LeagueDetailActivity"
+            android:name="com.iseasoft.iseagoal.LeagueDetailActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
 

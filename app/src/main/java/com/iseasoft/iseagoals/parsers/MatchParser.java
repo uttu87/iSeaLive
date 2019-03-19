@@ -94,9 +94,11 @@ public class MatchParser {
         if (jsonObject.has(LEAGUE)) {
             match.setLeague(jsonObject.getString(LEAGUE));
         }
-        if (jsonObject.has(TIME)) {
+        /*
+        if (jsonObject.has(TIME) && jsonObject.isNull(TIME)) {
             match.setTime(parseTimeFromJSONObject(jsonObject.getJSONObject(TIME)));
         }
+        */
         if (jsonObject.has(IS_LIVE)) {
             match.setLive(jsonObject.getBoolean(IS_LIVE));
         }

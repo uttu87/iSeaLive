@@ -58,6 +58,7 @@ public class Match extends ViewModel implements Serializable {
 
     public void setStreamUrls(ArrayList<String> streamUrls) {
         this.streamUrls = streamUrls;
+        setStreamUrl(streamUrls.get(0));
     }
 
     public String getThumbnailUrl() {

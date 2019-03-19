@@ -19,8 +19,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.iseasoft.iseagoals.adapters.CanvasAdapter;
 import com.iseasoft.iseagoals.adapters.LeagueAdapter;
+import com.iseasoft.iseagoals.adapters.LiveAdapter;
 import com.iseasoft.iseagoals.api.APIListener;
 import com.iseasoft.iseagoals.api.ISeaLiveAPI;
 import com.iseasoft.iseagoals.models.League;
@@ -58,7 +58,7 @@ public class LiveFragment extends BaseFragment {
     long homeScreenRequestStartedAt;
     private boolean init = false;
     private ArrayList<League> mLeagues;
-    private CanvasAdapter mCanvasAdapter;
+    private LiveAdapter mCanvasAdapter;
 
     public static LiveFragment newInstance() {
         return new LiveFragment();
@@ -240,7 +240,7 @@ public class LiveFragment extends BaseFragment {
             mCanvasAdapter.updateData(mLeagues);
             return;
         }
-        mCanvasAdapter = new CanvasAdapter(getContext(), mLeagues);
+        mCanvasAdapter = new LiveAdapter(getContext(), mLeagues);
         mCanvasAdapter.setOnCanvasListener(league -> {
             ((BaseActivity) getActivity()).navigationToLeagueScreen(league);
         });

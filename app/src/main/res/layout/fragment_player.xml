@@ -7,7 +7,7 @@
     tools:context=".PlayerFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -62,6 +62,14 @@
                     android:visibility="gone" />
             </com.devbrackets.android.exomedia.ui.widget.VideoView>
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/link_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:orientation="horizontal" />
 
     </LinearLayout>
 

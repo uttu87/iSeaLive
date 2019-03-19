@@ -156,9 +156,9 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
-        if (match.getLeague().equals(String.valueOf(SPORT_TV_ID))) {
-            ChannelListFragment channelListFragment = ChannelListFragment.newInstance();
-            ft.replace(R.id.match_list, channelListFragment);
+        if (match.isLive()) {
+            LiveFragment liveFragment = LiveFragment.newInstance();
+            ft.replace(R.id.match_list, liveFragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.commit();
         } else {

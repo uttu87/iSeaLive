@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,6 +56,8 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
     ImageView thumbnailImage;
     @BindView(R.id.thumbnail_seek_time)
     TextView thumbnailSeekTextView;
+    @BindView(R.id.link_container)
+    LinearLayout linkContainer;
 
     private Match match;
     private String mVideoUrl;
@@ -112,6 +117,7 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
         unbinder = ButterKnife.bind(this, view);
         if (savedInstanceState == null) {
             setupVideoView();
+            setLinkListView();
         }
 
         return view;
@@ -152,6 +158,32 @@ public class PlayerFragment extends BaseFragment implements OnPreparedListener, 
             );
 
             videoView.setLayoutParams(params);
+        }
+    }
+
+    private void setLinkListView() {
+        if (match.getStreamUrls() == null || match.getStreamUrls().size() == 0) {
+            return;
+        }
+
+        int buttonStyle = R.style.ISea_Button;
+        int paddingAndMargin = 20;
+        final int PADDING_LEVEL = 1;
+        for (int i = 0; i < match.getStreamUrls().size(); i++) {
+            final int index = i;
+            Button btn = new Button(new ContextThemeWrapper(getContext(), buttonStyle), null, buttonStyle);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(paddingAndMargin, paddingAndMargin, paddingAndMargin, paddingAndMargin);
+            btn.setText(String.format("LINK %d", i + 1));
+            btn.setPadding(PADDING_LEVEL * paddingAndMargin, paddingAndMargin, PADDING_LEVEL * paddingAndMargin, paddingAndMargin);
+            btn.setLayoutParams(layoutParams);
+            btn.setOnClickListener(v -> {
+                mVideoUrl = match.getStreamUrls().get(index);
+                videoView.setVideoURI(Uri.parse(mVideoUrl));
+                LiveApplication.screenCount++;
+            });
+            linkContainer.addView(btn);
         }
     }
 

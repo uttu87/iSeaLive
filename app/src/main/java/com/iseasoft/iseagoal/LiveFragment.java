@@ -248,6 +248,9 @@ public class LiveFragment extends BaseFragment {
             @Override
             public void onItemClicked(Match item) {
                 ((BaseActivity) getActivity()).navigationToPlayerScreen(item);
+                if (getActivity() instanceof PlayerActivity) {
+                    getActivity().finish();
+                }
             }
 
             @Override

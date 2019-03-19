@@ -15,9 +15,7 @@
             android:layout_height="48dp"
             android:layout_alignParentTop="true"
             android:background="@color/slate"
-            app:layout_scrollFlags="scroll|snapMargins"
-            app:tabGravity="fill"
-            app:tabMode="scrollable"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:tabSelectedTextColor="@color/dark_sky_blue"
             app:tabTextColor="@color/pale_grey" />
     </LinearLayout>

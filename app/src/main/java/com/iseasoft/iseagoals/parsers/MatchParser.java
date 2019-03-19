@@ -37,7 +37,7 @@ public class MatchParser {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             Match match = createMatchFromJSONObject(jsonObject);
-            if (!match.isHidden() || match.isLive() || LiveApplication.isDebugBuild()) {
+            if (!match.isHidden() || LiveApplication.isDebugBuild()) {
                 matches.add(match);
             }
         }

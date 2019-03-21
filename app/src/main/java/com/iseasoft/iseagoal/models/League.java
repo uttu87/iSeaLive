@@ -10,6 +10,7 @@ public class League extends ViewModel implements Serializable {
     private String name;
     private String description;
     private ArrayList<Match> matches;
+    private boolean isHidden;
 
     public int getId() {
         return id;
@@ -41,5 +42,13 @@ public class League extends ViewModel implements Serializable {
 
     public void setMatches(ArrayList<Match> matches) {
         this.matches = matches;
+    }
+
+    public boolean isHidden() {
+        return isHidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        isHidden = hidden;
     }
 }

@@ -85,7 +85,7 @@ public class ISeaLiveAPI {
                                 JSONObject jsonObject = new JSONObject(document.getData());
                                 //Log.d(TAG, jsonObject.toString());
                                 League league = LeagueParser.createLeagueFromJSONObject(jsonObject);
-                                if (league.getMatches().size() > 0) {
+                                if (!league.isHidden() && league.getMatches().size() > 0) {
                                     leagues.add(league);
                                 }
                                 addDataSuccess = true;
@@ -123,7 +123,7 @@ public class ISeaLiveAPI {
                                 //Log.d(TAG, jsonObject.toString());
                                 //League league = LeagueParser.createLeagueFromJSONObject(jsonObject);
                                 League league = LeagueParser.createLeagueFromSnapshotDocument(document);
-                                if (league.getMatches().size() > 0) {
+                                if (!league.isHidden() && league.getMatches().size() > 0) {
                                     leagues.add(league);
                                 }
                                 addDataSuccess = true;

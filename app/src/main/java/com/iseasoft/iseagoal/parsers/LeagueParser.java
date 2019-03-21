@@ -15,6 +15,7 @@ public class LeagueParser {
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";
     public static final String MATCH = "match";
+    public static final String IS_HIDDEN = "isHidden";
 
     public static ArrayList<League> createLeagueFromJSONArray(JSONArray jsonArray) throws JSONException {
         ArrayList<League> leagues = new ArrayList<>();
@@ -43,6 +44,9 @@ public class LeagueParser {
         if (jsonObject.has(MATCH)) {
             league.setMatches(MatchParser.createMatchFromJSONArray(jsonObject.getJSONArray(MATCH)));
         }
+        if (jsonObject.has(IS_HIDDEN)) {
+            league.setHidden(jsonObject.getBoolean(IS_HIDDEN));
+        }
         return league;
     }
 
@@ -60,6 +64,9 @@ public class LeagueParser {
         if (document.contains(MATCH)) {
             ArrayList<Object> matches = (ArrayList<Object>) document.get(MATCH);
             league.setMatches(MatchParser.createMatchFromArrayObject(matches));
+        }
+        if (document.contains(IS_HIDDEN)) {
+            league.setHidden(document.getBoolean(IS_HIDDEN));
         }
         return league;
     }

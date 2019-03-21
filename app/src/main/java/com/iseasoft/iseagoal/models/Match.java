@@ -1,11 +1,14 @@
 package com.iseasoft.iseagoal.models;
 
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-public class Match extends ViewModel implements Serializable {
+public class Match extends ViewModel implements Serializable, Comparable {
     private int id;
     private String name;
     private String description;
@@ -14,7 +17,7 @@ public class Match extends ViewModel implements Serializable {
     private String thumbnailUrl;
     private String type;
     private String league;
-    private long time;
+    private Date time;
     private boolean isLive;
     private boolean isYoutube;
     private boolean isHidden;
@@ -85,11 +88,11 @@ public class Match extends ViewModel implements Serializable {
         this.league = league;
     }
 
-    public long getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -110,6 +113,20 @@ public class Match extends ViewModel implements Serializable {
     }
 
     public boolean isHidden() {
+        if (time != null) {
+            Calendar beginTime = Calendar.getInstance();
+            beginTime.setTime(time);
+            beginTime.add(Calendar.MINUTE, -30);
+
+            Calendar endTime = Calendar.getInstance();
+            endTime.setTime(time);
+            endTime.add(Calendar.HOUR, 2);
+
+            Date now = new Date();
+
+            return now.before(beginTime.getTime()) || now.after(endTime.getTime());
+        }
+
         return isHidden;
     }
 
@@ -123,5 +140,11 @@ public class Match extends ViewModel implements Serializable {
 
     public void setFullMatch(boolean fullMatch) {
         isFullMatch = fullMatch;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        Match match = (Match) o;
+        return (int) (this.time.getTime() - match.getTime().getTime());
     }
 }

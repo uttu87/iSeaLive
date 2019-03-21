@@ -119,9 +119,10 @@ public class ISeaLiveAPI {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             //Log.d(TAG, document.getId() + " => " + document.getData());
                             try {
-                                JSONObject jsonObject = new JSONObject(document.getData());
+                                JSONObject jsonObject = new JSONObject(document.getData(DocumentSnapshot.ServerTimestampBehavior.NONE));
                                 //Log.d(TAG, jsonObject.toString());
-                                League league = LeagueParser.createLeagueFromJSONObject(jsonObject);
+                                //League league = LeagueParser.createLeagueFromJSONObject(jsonObject);
+                                League league = LeagueParser.createLeagueFromSnapshotDocument(document);
                                 if (league.getMatches().size() > 0) {
                                     leagues.add(league);
                                 }

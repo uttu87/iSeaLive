@@ -2,6 +2,7 @@ package com.iseasoft.iseagoal.parsers;
 
 import android.text.TextUtils;
 
+import com.google.firebase.Timestamp;
 import com.iseasoft.iseagoal.LiveApplication;
 import com.iseasoft.iseagoal.models.Match;
 
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 public class MatchParser {
 
@@ -42,6 +44,26 @@ public class MatchParser {
             }
         }
         Collections.reverse(matches);
+        return matches;
+    }
+
+    public static ArrayList<Match> createMatchFromArrayObject(ArrayList<Object> jsonArray) throws JSONException {
+        ArrayList<Match> matches = new ArrayList<>();
+        if (jsonArray == null || jsonArray.size() == 0) {
+            return matches;
+        }
+        for (int i = 0; i < jsonArray.size(); i++) {
+            Map<String, Object> jsonObject = (Map<String, Object>) jsonArray.get(i);
+            Match match = createMatchFromJSONObject(new JSONObject(jsonObject));
+            Timestamp timestamp = (Timestamp) jsonObject.get(TIME);
+            if (timestamp != null) {
+                match.setTime(timestamp.toDate());
+            }
+            if (!match.isHidden() && LiveApplication.isDebugBuild()) {
+                matches.add(match);
+            }
+        }
+        Collections.sort(matches);
         return matches;
     }
 
@@ -94,11 +116,6 @@ public class MatchParser {
         if (jsonObject.has(LEAGUE)) {
             match.setLeague(jsonObject.getString(LEAGUE));
         }
-        /*
-        if (jsonObject.has(TIME) && jsonObject.isNull(TIME)) {
-            match.setTime(parseTimeFromJSONObject(jsonObject.getJSONObject(TIME)));
-        }
-        */
         if (jsonObject.has(IS_LIVE)) {
             match.setLive(jsonObject.getBoolean(IS_LIVE));
         }

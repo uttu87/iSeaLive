@@ -1,5 +1,6 @@
 package com.iseasoft.iseagoal.parsers;
 
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.iseasoft.iseagoal.models.League;
 
 import org.json.JSONArray;
@@ -41,6 +42,24 @@ public class LeagueParser {
         }
         if (jsonObject.has(MATCH)) {
             league.setMatches(MatchParser.createMatchFromJSONArray(jsonObject.getJSONArray(MATCH)));
+        }
+        return league;
+    }
+
+    public static League createLeagueFromSnapshotDocument(QueryDocumentSnapshot document) throws JSONException {
+        League league = new League();
+        if (document.contains(ID)) {
+            league.setId(Integer.parseInt((String) document.get(ID)));
+        }
+        if (document.contains(NAME)) {
+            league.setName(document.getString(NAME));
+        }
+        if (document.contains(DESCRIPTION)) {
+            league.setDescription(document.getString(DESCRIPTION));
+        }
+        if (document.contains(MATCH)) {
+            ArrayList<Object> matches = (ArrayList<Object>) document.get(MATCH);
+            league.setMatches(MatchParser.createMatchFromArrayObject(matches));
         }
         return league;
     }

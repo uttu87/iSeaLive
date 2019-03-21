@@ -103,6 +103,7 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveAdapter.ViewHolder> {
             rvLeague = itemView.findViewById(R.id.list);
             rvLeague.setRecycledViewPool(mSharedPool);
             Utils.modifyListViewForVertical(context.get(), rvLeague);
+            rvLeague.setNestedScrollingEnabled(false);
         }
     }
 }

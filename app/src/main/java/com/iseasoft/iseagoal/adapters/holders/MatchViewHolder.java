@@ -61,6 +61,8 @@ public class MatchViewHolder extends RecyclerView.ViewHolder {
                 SimpleDateFormat fmt = new SimpleDateFormat("hh:mm a");
                 time.setText(fmt.format(match.getTime()));
                 time.setVisibility(View.VISIBLE);
+            } else {
+                time.setVisibility(View.GONE);
             }
         }
     }

@@ -12,6 +12,8 @@ import com.iseasoft.iseagoal.R;
 import com.iseasoft.iseagoal.listeners.OnMatchListener;
 import com.iseasoft.iseagoal.models.Match;
 
+import java.text.SimpleDateFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -53,6 +55,14 @@ public class MatchViewHolder extends RecyclerView.ViewHolder {
         textView.setText(match.getName());
         loadImage(match, context);
         liveBadge.setVisibility(match.isLive() ? View.VISIBLE : View.GONE);
+        TextView time = itemView.findViewById(R.id.time);
+        if (time != null) {
+            if (match.getTime() != null) {
+                SimpleDateFormat fmt = new SimpleDateFormat("hh:mm a");
+                time.setText(fmt.format(match.getTime()));
+                time.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @OnClick({R.id.btn_play, R.id.mainView})

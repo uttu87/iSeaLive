@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,8 +48,6 @@ public class LiveFragment extends BaseFragment {
 
     public static final String TAG = LiveFragment.class.getSimpleName();
     Unbinder unbinder;
-    @BindView(R.id.shimmer_container)
-    ShimmerFrameLayout mShimmerViewContainer;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.list_league)
@@ -76,7 +73,6 @@ public class LiveFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        showShimmer();
         Utils.modifyListViewForVertical(getContext(), rvLeagueList);
 
         if (LiveApplication.isUseOnlineData()) {
@@ -112,12 +108,11 @@ public class LiveFragment extends BaseFragment {
                 }
 
                 refresh();
-                hideShimmer();
             }
 
             @Override
             public void onError(Error e) {
-                hideShimmer();
+
             }
         });
     }
@@ -143,20 +138,6 @@ public class LiveFragment extends BaseFragment {
             fetchOnlineData();
         } else {
             fetchLocalData();
-        }
-    }
-
-    private void showShimmer() {
-        if (mShimmerViewContainer != null) {
-            mShimmerViewContainer.setVisibility(View.VISIBLE);
-            mShimmerViewContainer.startShimmer();
-        }
-    }
-
-    private void hideShimmer() {
-        if (mShimmerViewContainer != null) {
-            mShimmerViewContainer.startShimmer();
-            mShimmerViewContainer.setVisibility(View.GONE);
         }
     }
 
@@ -196,7 +177,6 @@ public class LiveFragment extends BaseFragment {
         }
         if (mLeagues.size() > 0) {
             swipeRefreshLayout.setRefreshing(false);
-            hideShimmer();
             return;
         }
         try {
@@ -214,9 +194,7 @@ public class LiveFragment extends BaseFragment {
             }
 
             refresh();
-            hideShimmer();
         } catch (JSONException e) {
-            hideShimmer();
             e.printStackTrace();
         }
     }

@@ -145,6 +145,11 @@ public class Match extends ViewModel implements Serializable, Comparable {
     @Override
     public int compareTo(@NonNull Object o) {
         Match match = (Match) o;
+
+        if (this.time == null || match.getTime() == null) {
+            return 0;
+        }
+
         return (int) (this.time.getTime() - match.getTime().getTime());
     }
 }

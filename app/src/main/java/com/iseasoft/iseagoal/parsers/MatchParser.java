@@ -59,7 +59,7 @@ public class MatchParser {
             if (timestamp != null) {
                 match.setTime(timestamp.toDate());
             }
-            if (!match.isHidden() && LiveApplication.isDebugBuild()) {
+            if (!match.isHidden() || LiveApplication.isDebugBuild()) {
                 matches.add(match);
             }
         }

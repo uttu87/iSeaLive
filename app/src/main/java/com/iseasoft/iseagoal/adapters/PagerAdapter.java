@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.iseasoft.iseagoal.ChannelListFragment;
 import com.iseasoft.iseagoal.FullMatchFragment;
 import com.iseasoft.iseagoal.HighlightFragment;
+import com.iseasoft.iseagoal.IptvFragment;
 import com.iseasoft.iseagoal.LiveFragment;
 import com.iseasoft.iseagoal.WebViewFrament;
 
@@ -14,9 +15,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int TAB_HIGHLIGHT = 0;
     private static final int TAB_LIVE = TAB_HIGHLIGHT + 1;
-    private static final int TAB_LIVE_SCORE = TAB_LIVE + 1;
-    private static final int TAB_SPORT_TV = TAB_LIVE_SCORE + 1;
-    private static final int TAB_FULL_MATCH = TAB_SPORT_TV + 1;
+    private static final int TAB_IPTV = TAB_LIVE + 1;
+    private static final int TAB_LIVE_SCORE = TAB_IPTV + 1;
+    private static final int TAB_FULL_MATCH = TAB_LIVE_SCORE + 1;
     private static final int TAB_COUNT = TAB_LIVE_SCORE + 1;
 
     public PagerAdapter(FragmentManager fragmentManager) {
@@ -33,8 +34,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case TAB_HIGHLIGHT:
                 frag = HighlightFragment.newInstance();
                 break;
-            case TAB_SPORT_TV:
-                frag = ChannelListFragment.newInstance();
+            case TAB_IPTV:
+                frag = IptvFragment.newInstance();
                 break;
             case TAB_LIVE_SCORE:
                 frag = WebViewFrament.newInstance();
@@ -64,8 +65,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case TAB_HIGHLIGHT:
                 title = "HIGHLIGHTS";
                 break;
-            case TAB_SPORT_TV:
-                title = "SPORT TV";
+            case TAB_IPTV:
+                title = "IPTV";
                 break;
             case TAB_FULL_MATCH:
                 title = "FULL MATCH";

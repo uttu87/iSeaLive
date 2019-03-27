@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 
 import com.iseasoft.iseagoal.adapters.CarouselPagerAdapter;
 import com.iseasoft.iseagoal.models.League;
+import com.iseasoft.iseagoal.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

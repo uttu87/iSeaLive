@@ -34,4 +34,10 @@
     <string name="gdpr_body">This app uses StartApp to enable/provide you with a personalized advertising experience. By clicking, ‘continue’ you agree to share your personal data on StartApp’s Network and its Business Partners and agree to the StartApp privacy policy in order to allow StartApp and its Partners to provide you with relevant ads.</string>
     <string name="gdpr_logo">StartApp logo</string>
 
+    <string name="menu_show_as_entry_default">Default</string>
+
+    <string name="nothing_found">Nothing found</string>
+    <string name="folders">Folders</string>
+    <string name="select_storage">Select storage</string>
+
 </resources>

@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.iseasoft.iseagoal.R;
-import com.iseasoft.iseagoal.Utils;
 import com.iseasoft.iseagoal.models.League;
+import com.iseasoft.iseagoal.utils.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

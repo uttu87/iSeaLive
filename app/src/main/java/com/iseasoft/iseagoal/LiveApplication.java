@@ -3,6 +3,15 @@ package com.iseasoft.iseagoal;
 import android.app.Application;
 import android.content.Context;
 
+import com.iseasoft.iseagoal.permissions.Nammu;
+import com.iseasoft.iseagoal.utils.PreferencesUtility;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 public class LiveApplication extends Application {
 
     public static int screenCount = 0;
@@ -131,5 +140,18 @@ public class LiveApplication extends Application {
             LeakCanary.install(this);
         }
         */
+        ImageLoaderConfiguration localImageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this).imageDownloader(new BaseImageDownloader(this) {
+            PreferencesUtility prefs = PreferencesUtility.getInstance(LiveApplication.this);
+
+            @Override
+            protected InputStream getStreamFromNetwork(String imageUri, Object extra) throws IOException {
+                if (prefs.loadArtistAndAlbumImages())
+                    return super.getStreamFromNetwork(imageUri, extra);
+                throw new IOException();
+            }
+        }).build();
+
+        ImageLoader.getInstance().init(localImageLoaderConfiguration);
+        Nammu.init(this);
     }
 }

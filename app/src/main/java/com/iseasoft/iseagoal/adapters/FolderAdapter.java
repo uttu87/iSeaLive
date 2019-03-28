@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.iseasoft.iseagoal.R;
 import com.iseasoft.iseagoal.dataloaders.FolderLoader;
 import com.iseasoft.iseagoal.dataloaders.SongLoader;
+import com.iseasoft.iseagoal.listeners.FolderListener;
 import com.iseasoft.iseagoal.models.Song;
 import com.iseasoft.iseagoal.utils.PreferencesUtility;
 import com.iseasoft.iseagoal.utils.Utils;
@@ -45,6 +46,15 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
     private Activity mContext;
     private boolean mBusy = false;
 
+    private FolderListener listener;
+
+    public FolderListener getListener() {
+        return listener;
+    }
+
+    public void setListener(FolderListener listener) {
+        this.listener = listener;
+    }
 
     public FolderAdapter(Activity context, File root) {
         mContext = context;
@@ -243,6 +253,10 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
                                 }
                                 j++;
                             }
+                        }
+
+                        if (listener != null) {
+                            listener.onFileSelected(f);
                         }
                         //playAll(mContext, ret, current, -1, Utils.IdType.NA,
                         //       false, mSongs.get(getAdapterPosition()), false);

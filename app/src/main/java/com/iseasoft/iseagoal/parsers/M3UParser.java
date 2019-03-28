@@ -1,5 +1,6 @@
 package com.iseasoft.iseagoal.parsers;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.iseasoft.iseagoal.models.M3UItem;
@@ -18,6 +19,7 @@ public class M3UParser {
     private static final String EXT_INF = "#EXTINF:";
     private static final String EXT_PLAYLIST_NAME = "#PLAYLIST";
     private static final String EXT_LOGO = "tvg-logo";
+    private static final String EXT_GROUP = "group-title";
     private static final String EXT_URL = "http://";
 
     public String convertStreamToString(InputStream is) {
@@ -34,7 +36,10 @@ public class M3UParser {
         String stream = convertStreamToString(inputStream);
         String linesArray[] = stream.split(EXT_INF);
         for (int i = 0; i < linesArray.length; i++) {
-            String currLine = linesArray[i];
+            String currLine = linesArray[i].trim();
+            if (TextUtils.isEmpty(currLine)) {
+                continue;
+            }
             if (currLine.contains(EXT_M3U)) {
                 //header of file
                 if (currLine.contains(EXT_PLAYLIST_NAME)) {
@@ -67,7 +72,9 @@ public class M3UParser {
                 } catch (Exception fdfd) {
                     Log.e("Google", "Error: " + fdfd.fillInStackTrace());
                 }
-                playlistItems.add(playlistItem);
+                if (!TextUtils.isEmpty(playlistItem.getItemUrl())) {
+                    playlistItems.add(playlistItem);
+                }
             }
         }
         m3UPlaylist.setPlaylistItems(playlistItems);

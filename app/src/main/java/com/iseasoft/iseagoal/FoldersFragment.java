@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -27,6 +29,7 @@ import com.afollestad.appthemeengine.ATE;
 import com.iseasoft.iseagoal.adapters.FolderAdapter;
 import com.iseasoft.iseagoal.adapters.PlaylistAdapter;
 import com.iseasoft.iseagoal.dialogs.StorageSelectDialog;
+import com.iseasoft.iseagoal.https.HttpHandler;
 import com.iseasoft.iseagoal.listeners.FolderListener;
 import com.iseasoft.iseagoal.models.M3UPlaylist;
 import com.iseasoft.iseagoal.parsers.M3UParser;
@@ -41,6 +44,7 @@ import com.iseasoft.iseagoal.widgets.FastScroller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * Created by nv95 on 10.11.16.
@@ -52,7 +56,7 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
     private final PermissionCallback permissionReadstorageCallback = new PermissionCallback() {
         @Override
         public void permissionGranted() {
-            loadFolders();
+            //loadFolders();
         }
 
         @Override
@@ -115,7 +119,8 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
         if (Utils.isMarshmallow()) {
             requestStoragePermission();
         } else {
-            loadFolders();
+            //loadFolders();
+            loadOnlinePlaylist();
         }
     }
 
@@ -157,12 +162,18 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
                 loadFolders();
                 break;
             case R.id.action_server:
+                loadOnlinePlaylist();
                 break;
             case R.id.action_search:
                 getActivity().setContentView(R.layout.searchable);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadOnlinePlaylist() {
+        String url = "http://gg.gg/8zy29";
+        new LoadOnlinePlaylist().execute(url);
     }
 
     public void updateTheme() {
@@ -180,7 +191,8 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
 
     private void requestStoragePermission() {
         if (Nammu.checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE) && Nammu.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            loadFolders();
+            //loadFolders();
+            loadOnlinePlaylist();
         } else {
             if (Nammu.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 Snackbar.make(panelLayout, "iSeaMusic will need to read external storage to display songs on your device.",
@@ -200,16 +212,26 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
     @Override
     public void onFileSelected(File file) {
         if (file != null) {
-            if (m3UParser == null) {
-                m3UParser = new M3UParser();
-            }
             try {
-                m3UPlaylist = m3UParser.parseFile(new FileInputStream(file));
-                setupPlaylist(m3UPlaylist);
+                parsePlaylist(new FileInputStream(file));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void parsePlaylist(InputStream inputStream) {
+        if (m3UParser == null) {
+            m3UParser = new M3UParser();
+        }
+        try {
+            m3UPlaylist = m3UParser.parseFile(inputStream);
+            setupPlaylist(m3UPlaylist);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void setupPlaylist(M3UPlaylist m3UPlaylist) {
@@ -222,8 +244,8 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
             setItemDecoration();
         }
         mProgressBar.setVisibility(View.GONE);
-        //fastScroller.setVisibility(View.VISIBLE);
-        //fastScroller.setRecyclerView(recyclerView);
+        fastScroller.setVisibility(View.VISIBLE);
+        fastScroller.setRecyclerView(recyclerView);
     }
 
     private boolean filter(final String newText) {
@@ -258,12 +280,32 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
             }
             mAdapter.notifyDataSetChanged();
             mProgressBar.setVisibility(View.GONE);
-            //fastScroller.setVisibility(View.VISIBLE);
-            //fastScroller.setRecyclerView(recyclerView);
+            fastScroller.setVisibility(View.VISIBLE);
+            fastScroller.setRecyclerView(recyclerView);
         }
 
         @Override
         protected void onPreExecute() {
+        }
+    }
+
+    // Getting More Info about provided Line
+    class LoadOnlinePlaylist extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... url) {
+            HttpHandler hh = new HttpHandler();
+            InputStream playlistStr = hh.makeServiceCall(url[0]);
+
+            if (playlistStr != null) {
+                new Handler(Looper.getMainLooper()).post(() -> parsePlaylist(playlistStr));
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
         }
     }
 

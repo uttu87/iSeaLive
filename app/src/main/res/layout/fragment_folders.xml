@@ -20,7 +20,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         -->
 
-    <com.iseasoft.iseagoal.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.iseasoft.iseafootball.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sliding_layout"
@@ -43,7 +43,7 @@
 
         </FrameLayout>
 
-    </com.iseasoft.iseagoal.slidinguppanel.SlidingUpPanelLayout>
+    </com.iseasoft.iseafootball.slidinguppanel.SlidingUpPanelLayout>
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -59,7 +59,7 @@
         android:fadeScrollbars="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.iseasoft.iseagoal.widgets.FastScroller
+    <com.iseasoft.iseafootball.widgets.FastScroller
         android:id="@+id/fastscroller"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

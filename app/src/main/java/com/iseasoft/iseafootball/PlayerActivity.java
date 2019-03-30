@@ -156,17 +156,10 @@ public class PlayerActivity extends BaseActivity implements FragmentEventListene
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
-        if (match.isLive()) {
-            LiveFragment liveFragment = LiveFragment.newInstance();
-            ft.replace(R.id.match_list, liveFragment);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.commit();
-        } else {
-            MatchListFragment matchListFragment = MatchListFragment.newInstance(match);
-            ft.replace(R.id.match_list, matchListFragment);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.commit();
-        }
+        LiveFragment liveFragment = LiveFragment.newInstance();
+        ft.replace(R.id.match_list, liveFragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
     }
 
     public void setFullscreen(Activity activity) {

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,11 +126,15 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                 textDrawable = TextDrawable.builder()
                         .buildRoundRect(String.valueOf(item.getItemName().charAt(0)), color, 100);
 
-                Picasso.with(mContext)
-                        .load(item.getItemIcon())
-                        .placeholder(textDrawable)
-                        .error(textDrawable)
-                        .into(cImg);
+                if (TextUtils.isEmpty(item.getItemIcon())) {
+                    cImg.setImageDrawable(textDrawable);
+                } else {
+                    Picasso.with(mContext)
+                            .load(item.getItemIcon())
+                            .placeholder(textDrawable)
+                            .error(textDrawable)
+                            .into(cImg);
+                }
 
             } catch (Exception ignored) {
             }

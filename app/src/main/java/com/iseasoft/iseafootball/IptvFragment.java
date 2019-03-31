@@ -68,11 +68,13 @@ public class IptvFragment extends BaseFragment {
     }
 
     private void openFolder() {
+        /*
         Fragment fragment = new FoldersFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         //transaction.hide(getChildFragmentManager().findFragmentById(R.id.fragment_container));
         transaction.replace(R.id.fragment_container, fragment).commit();
         fragmentContainer.setVisibility(View.VISIBLE);
+        */
     }
 
     private void downloadFile() {

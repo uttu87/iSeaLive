@@ -69,8 +69,8 @@
     </style>
 
     <style name="CarouselDescp">
-        <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/cloudy_grey</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/slate</item>
         <item name="android:lineSpacingExtra">5sp</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_marginBottom">8dp</item>

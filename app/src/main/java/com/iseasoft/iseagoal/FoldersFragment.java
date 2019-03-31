@@ -11,10 +11,12 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -134,13 +136,25 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_folders, menu);
+        MenuItem search = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+        searchView.setQueryHint("Search channel name");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return filter(query);
+            }
+
+            @Override
+            public boolean onQueryTextChange(final String newText) {
+                //TODO here changes the search text)
+                return filter(newText);
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_storages) {
-
-        }
         switch (item.getItemId()) {
             case R.id.action_storages:
                 loadFolders();
@@ -150,6 +164,15 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean filter(final String newText) {
+        if (playlistAdapter != null) {
+            playlistAdapter.getFilter().filter(newText);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void loadServer() {

@@ -18,7 +18,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
@@ -81,26 +80,24 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 mItem.clear();
-                //mItem.addAll((ArrayList<M3UItem>) results.values);
+                mItem.addAll((ArrayList<M3UItem>) results.values);
                 notifyDataSetChanged();
             }
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults results = new FilterResults();
+                List<M3UItem> resultList = new ArrayList<>();
                 if (!(constraint.length() == 0)) {
-                    mItem.clear();
                     final String filtePatt = constraint.toString().toLowerCase().trim();
                     for (M3UItem itm : mItem) {
                         if (itm.getItemName().toLowerCase().contains(filtePatt)) {
-                            Toast.makeText(mContext, "Google", Toast.LENGTH_SHORT).show();
-                            mItem.add(itm);
+                            resultList.add(itm);
                         }
-                        mItem.add(itm);
                     }
                 }
-                results.values = mItem;
-                results.count = mItem.size();
+                results.values = resultList;
+                results.count = resultList.size();
                 return results;
             }
         };

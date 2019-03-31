@@ -7,7 +7,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 import com.iseasoft.iseagoal.R;
 import com.iseasoft.iseagoal.dataloaders.FolderLoader;
 import com.iseasoft.iseagoal.dataloaders.SongLoader;
+import com.iseasoft.iseagoal.listeners.FolderListener;
 import com.iseasoft.iseagoal.models.Song;
 import com.iseasoft.iseagoal.utils.PreferencesUtility;
 import com.iseasoft.iseagoal.utils.Utils;
@@ -45,6 +45,7 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
     private Activity mContext;
     private boolean mBusy = false;
 
+    private FolderListener folderListener;
 
     public FolderAdapter(Activity context, File root) {
         mContext = context;
@@ -56,6 +57,14 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
         };
         mSongs = new ArrayList<>();
         updateDataSet(root);
+    }
+
+    public FolderListener getFolderListener() {
+        return folderListener;
+    }
+
+    public void setFolderListener(FolderListener folderListener) {
+        this.folderListener = folderListener;
     }
 
     public void applyTheme(boolean dark) {
@@ -221,6 +230,11 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
                 albumArt.setImageDrawable(mIcons[3]);
             } else if (f.isFile()) {
 
+                if (folderListener != null) {
+                    folderListener.onFileSelected(f);
+                }
+
+                /*
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -248,6 +262,7 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
                         //       false, mSongs.get(getAdapterPosition()), false);
                     }
                 }, 100);
+                */
 
 
             }

@@ -6,4 +6,10 @@
         android:orderInCategory="99"
         android:title="@string/select_storage"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_server"
+        android:orderInCategory="100"
+        android:title="@string/select_server"
+        app:showAsAction="never" />
 </menu>

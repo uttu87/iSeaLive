@@ -7,6 +7,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -178,5 +180,14 @@ public class Utils {
 
     public static Uri getAlbumArtUri(long albumId) {
         return ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumId);
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = null;
+        if (manager != null) {
+            activeNetwork = manager.getActiveNetworkInfo();
+        }
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/cimg"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp" />
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLines="2"
+        android:text="Name"
+        android:textColor="@color/slate"
+        android:textSize="13sp" />
+
+    <!--<TextView-->
+    <!--android:id="@+id/item_url"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:lines="1"-->
+    <!--android:singleLine="true"-->
+    <!--android:text="Url" />-->
+
+</LinearLayout>

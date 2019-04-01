@@ -18,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,6 +55,7 @@ import java.io.InputStream;
 public class FoldersFragment extends Fragment implements StorageSelectDialog.OnDirSelectListener,
         FolderListener {
 
+    private static final int COLUMN_WIDTH = 70;
     private final PermissionCallback permissionReadstorageCallback = new PermissionCallback() {
         @Override
         public void permissionGranted() {
@@ -142,13 +144,21 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return filter(query);
+                if (TextUtils.isEmpty(query)) {
+                    return filter("");
+                } else {
+                    return filter(query);
+                }
             }
 
             @Override
             public boolean onQueryTextChange(final String newText) {
                 //TODO here changes the search text)
-                return filter(newText);
+                if (TextUtils.isEmpty(newText)) {
+                    return filter("");
+                } else {
+                    return filter(newText);
+                }
             }
         });
     }
@@ -235,10 +245,9 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
                 }
                 playlistAdapter.update(playlist.getPlaylistItems());
                 recyclerView.setAdapter(playlistAdapter);
-                //to add spacing between cards
-                if (getActivity() != null) {
-                    setItemDecoration();
-                }
+                int columnWidthInDp = COLUMN_WIDTH;
+                int spanCount = Utils.getOptimalSpanCount(recyclerView, columnWidthInDp);
+                Utils.modifyRecylerViewForGridView(recyclerView, spanCount, columnWidthInDp);
                 mProgressBar.setVisibility(View.GONE);
                 fastScroller.setVisibility(View.VISIBLE);
                 fastScroller.setRecyclerView(recyclerView);
@@ -265,10 +274,6 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
         @Override
         protected void onPostExecute(String result) {
             recyclerView.setAdapter(mAdapter);
-            //to add spacing between cards
-            if (getActivity() != null) {
-                setItemDecoration();
-            }
             mAdapter.notifyDataSetChanged();
             mProgressBar.setVisibility(View.GONE);
             fastScroller.setVisibility(View.VISIBLE);

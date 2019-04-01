@@ -13,9 +13,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.webkit.WebView;
@@ -121,8 +121,8 @@ public class Utils {
         if (spanCount == 0) {
             spanCount = getOptimalSpanCount(recyclerView, columnWidthInDp);
         }
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(spanCount,
-                StaggeredGridLayoutManager.VERTICAL);
+        GridLayoutManager layoutManager = new GridLayoutManager(recyclerView.getContext(),
+                spanCount);
         recyclerView.setLayoutManager(layoutManager);
         //recyclerView.setNestedScrollingEnabled(false);
     }
